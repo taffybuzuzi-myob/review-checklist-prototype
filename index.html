@@ -2,163 +2,256 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Review Checklist Prototype</title>
+  <title>Reviewer Summary – FY2025</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f9fafb;
-      color: #333;
-    }
-    h2 {
-      margin-top: 30px;
-      margin-bottom: 10px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .alert {
-      border-left: 6px solid #f59e0b;
-      background: #fff7ed;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-    }
-    .info {
-      border-left: 6px solid #3b82f6;
-      background: #eff6ff;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-    }
-    .icon {
-      font-weight: bold;
-      margin-right: 8px;
-    }
-    .actions {
-      margin-top: 10px;
-    }
-    button {
-      margin-right: 10px;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .approve { background: #22c55e; color: #fff; }
-    .edit { background: #facc15; color: #000; }
-    .links {
-      margin-top: 10px;
-      font-size: 0.9em;
-    }
-    .links a {
-      color: #2563eb;
-      text-decoration: none;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+    .container { max-width: 960px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+    h1, h2 { margin-top: 0; }
+    .header { border-bottom: 2px solid #ddd; padding-bottom: 12px; margin-bottom: 20px; }
+    .meta { color: #555; }
+    .section { border: 1px solid #e6e6e6; margin-bottom: 18px; padding: 16px; border-radius: 6px; background: #fafafa; }
+    .flag { margin: 12px 0 16px; padding: 12px; border-left: 5px solid #ff9800; background: #fff7e6; border-radius: 4px; }
+    .flag h3 { margin: 0 0 6px; }
+    .carried { border-left: 5px solid #1976d2; background: #f1f7ff; }
+    .icon { font-size: 18px; margin-right: 6px; }
+    .controls { margin-top: 8px; }
+    button { margin: 4px; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; }
+    .btn-approve { background: #4caf50; color: white; }
+    .btn-edit { background: #2196f3; color: white; }
+    .btn-doc { background: #795548; color: white; }
+    .btn-link { background: #9c27b0; color: white; }
+    .btn-lock { background: #673ab7; color: white; }
+    details { margin-top: 6px; background: #fff; border: 1px solid #e6e6e6; border-radius: 4px; padding: 8px; }
+    details summary { cursor: pointer; font-weight: bold; }
+    .letter { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 6px; line-height: 1.6; }
+    .issue-block { margin: 18px 0; padding: 12px; border-left: 5px solid #ff9800; background: #fff7e6; border-radius: 4px; }
+    .issue-block.carried { border-left: 5px solid #1976d2; background: #f1f7ff; }
+    .actions { text-align: center; margin-top: 16px; }
   </style>
 </head>
 <body>
-  <h1>Review Checklist Prototype</h1>
-
-  <!-- Section 1 -->
-  <h2>Section 1 – Review Checklist</h2>
-  <div class="card">
-    <div class="alert">
-      <span class="icon">⚠️</span><strong>Work-Related Expenses</strong>
-      <p>Expenses up 40% vs last year. Substantiation required.</p>
-      <div class="actions">
-        <button class="approve">Approve</button>
-        <button class="edit">Edit</button>
-      </div>
-    </div>
-    <div class="alert">
-      <span class="icon">⚠️</span><strong>Rental Property</strong>
-      <p>Interest deductions up 30% vs last year. Confirm redraws/private use and repairs vs improvements.</p>
-      <div class="actions">
-        <button class="approve">Approve</button>
-        <button class="edit">Edit</button>
-      </div>
-    </div>
-    <div class="alert">
-      <span class="icon">⚠️</span><strong>Cryptocurrency / CGT</strong>
-      <p>Crypto disposals identified. Some held >12 months (CGT discount may apply). Ensure cost base records.</p>
-      <div class="actions">
-        <button class="approve">Approve</button>
-        <button class="edit">Edit</button>
-      </div>
-    </div>
-    <div class="info">
-      <span class="icon">📂</span><strong>CGT Disposal – Carried Forward to FY2026</strong>
-      <p>Contract date July 2025. Excluded from FY2025. Event details carried forward.</p>
-      <div class="actions">
-        <button class="approve">Approve</button>
-        <button class="edit">Edit</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 2 -->
-  <h2>Section 2 – AI Insights / Notes</h2>
-  <div class="card">
-    <ul>
-      <li>⚡ AI draft note: “Work-related expenses unusually high. Cross-check with ATO focus areas.”</li>
-      <li>⚡ AI draft note: “Rental property loan interest spike — risk of redraw/private use.”</li>
-      <li>⚡ AI draft note: “Cryptocurrency disposal detected. Attach cost base records reminder.”</li>
-      <li>⚡ AI draft note: “CGT disposal flagged for FY2026. Carried forward with documents.”</li>
-    </ul>
-  </div>
-
-  <!-- Section 3 -->
-  <h2>Section 3 – Client Communication Draft</h2>
-  <div class="card">
-    <p>Dear John,</p>
-    <p>
-      We thank you for allowing us the opportunity to assist you with your taxation needs. 
-      We are pleased to enclose your Income Tax Return for the year ended 30 June 2025.
-    </p>
-    <p>
-      Please review the Income Tax Return marked ‘Client Copy’ attached to this letter. 
-      Please note that the income tax calculation is an estimate only, as PAYG Instalments 
-      and other disclosures in the return are dependent on the Australian Taxation Office (ATO) 
-      cross-referencing these amounts.
-    </p>
-
-    <div class="alert">
-      <span class="icon">⚠️</span><strong>Work-Related Expenses</strong>
-      <p>Your work-related expenses are up 40% compared to last year. We will need you to confirm substantiation (e.g., receipts or a logbook).</p>
-      <p><em>This is an ATO focus area for 2025.</em></p>
-      <div class="links">
-        📎 <a href="https://www.ato.gov.au/Individuals/Income-and-deductions/Deductions-you-can-claim/" target="_blank">ATO: Deductions Guide</a>
+  <div class="container">
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Reviewer Summary – FY2025</h1>
+      <div class="meta">
+        <strong>Client:</strong> John Smith &nbsp;|&nbsp;
+        <strong>Preparer:</strong> A. Brown &nbsp;|&nbsp;
+        <strong>Reviewer:</strong> T. Lee &nbsp;|&nbsp;
+        <strong>Status:</strong> Draft &nbsp;|&nbsp;
+        <strong>Checklist:</strong> 9/11 complete
       </div>
     </div>
 
-    <div class="alert">
-      <span class="icon">⚠️</span><strong>Rental Property</strong>
-      <p>Your interest deductions have increased by 30% compared to last year. Please confirm whether any loan redraws or private use are included, and check if any capital improvements were coded as repairs.</p>
-      <div class="links">
-        📎 <a href="https://www.ato.gov.au/individuals/income-and-deductions/in-detail/rental-property/" target="_blank">ATO: Rental Property Guide</a>
+    <!-- SECTION 1: KEY ISSUES -->
+    <div class="section">
+      <h2>Section 1 – Key Issues (AI Flagged)</h2>
+
+      <div class="flag">
+        <h3><span class="icon">⚠️</span>Work-Related Expenses</h3>
+        <p>Up 40% vs FY2024 (threshold 20%).</p>
+        <p><strong>AI reviewer note:</strong> Confirm logbook/receipts to substantiate increased claim.</p>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>WRE_Receipts_Q4.pdf</li>
+          </ul>
+          <button class="btn-doc">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Resources</summary>
+          <ul>
+            <li>ATO: Work-related expenses guide</li>
+            <li>Internal: WRE substantiation checklist</li>
+          </ul>
+          <button class="btn-link">Add Resource</button>
+        </details>
+
+        <div class="controls">
+          <button class="btn-approve">Approve</button>
+          <button class="btn-edit">Edit Note</button>
+        </div>
+      </div>
+
+      <div class="flag">
+        <h3><span class="icon">⚠️</span>Rental Property</h3>
+        <p>Interest deductions up 30% vs FY2024.</p>
+        <p><strong>AI reviewer note:</strong> Verify redraws/private use not included; check capital works vs repairs.</p>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>Rental_Statement_2025.pdf</li>
+            <li>Loan_Interest_Summary_2025.pdf</li>
+          </ul>
+          <button class="btn-doc">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Resources</summary>
+          <ul>
+            <li>ATO: Rental repairs vs improvements</li>
+            <li>Internal: Rental review checklist</li>
+          </ul>
+          <button class="btn-link">Add Resource</button>
+        </details>
+
+        <div class="controls">
+          <button class="btn-approve">Approve</button>
+          <button class="btn-edit">Edit Note</button>
+        </div>
+      </div>
+
+      <div class="flag">
+        <h3><span class="icon">⚠️</span>Cryptocurrency / CGT</h3>
+        <p>Disposals detected; some assets held &gt; 12 months.</p>
+        <p><strong>AI reviewer note:</strong> Confirm CGT discount applied; cost base evidence attached.</p>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>Crypto_Trades_2025.csv</li>
+          </ul>
+          <button class="btn-doc">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Resources</summary>
+          <ul>
+            <li>ATO: Crypto assets and tax</li>
+            <li>Internal: Crypto CGT checklist</li>
+          </ul>
+          <button class="btn-link">Add Resource</button>
+        </details>
+
+        <div class="controls">
+          <button class="btn-approve">Approve</button>
+          <button class="btn-edit">Edit Note</button>
+        </div>
       </div>
     </div>
 
-    <div class="alert">
-      <span class="icon">⚠️</span><strong>Cryptocurrency / CGT</strong>
-      <p>We have identified cryptocurrency disposals this year. Some assets were held for more than 12 months, which may qualify for the CGT discount. Please ensure cost base records are available.</p>
-      <div class="links">
-        📎 <a href="https://www.ato.gov.au/Individuals/Investments-and-assets/Crypto-asset-investments/" target="_blank">ATO: Crypto Assets</a>
+    <!-- SECTION 2: CARRIED FORWARD -->
+    <div class="section">
+      <h2>Section 2 – Carried Forward Items</h2>
+      <div class="flag carried">
+        <h3><span class="icon">📂</span>CGT Disposal – Asset XYZ</h3>
+        <p><strong>Contract date:</strong> 12 July 2025 → Event in FY2026<br>
+           <strong>Settlement date:</strong> [dd/mm/yyyy]</p>
+        <p><strong>AI reviewer note:</strong> Correctly excluded from FY2025 and logged for FY2026. Client note prepared to explain absence this year.</p>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>Contract.pdf</li>
+            <li>Settlement.pdf</li>
+          </ul>
+          <button class="btn-doc">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Resources</summary>
+          <ul>
+            <li>ATO: CGT events – contract vs settlement</li>
+            <li>Internal: CGT timing explainer</li>
+          </ul>
+          <button class="btn-link">Add Resource</button>
+        </details>
+
+        <div class="controls">
+          <button class="btn-approve">Approve</button>
+          <button class="btn-edit">Edit Note</button>
+        </div>
       </div>
     </div>
 
-    <div class="info">
-      <span class="icon">📂</span><strong>CGT Disposal – Carried Forward to FY2026</strong>
-      <p>We identified a CGT disposal with a contract date in July 2025. This falls into FY2026, not FY2025. The event details and documents have been carried forward for inclusion in FY2026.</p>
+    <!-- SECTION 3: CLIENT COMMUNICATION -->
+    <div class="section">
+      <h2>Section 3 – Client Communication Draft</h2>
+      <div class="letter">
+        <p>Dear John,</p>
+
+        <p>We thank you for allowing us the opportunity to assist you with your taxation needs. 
+        We are pleased to enclose your Income Tax Return for the year ended 30 June 2025.</p>
+
+        <p>Please review the Income Tax Return marked ‘Client Copy’ attached to this letter. 
+        Please note that the income tax calculation is an estimate only, as PAYG Instalments 
+        and other disclosures in the return are dependent on the Australian Taxation Office (ATO) 
+        cross-referencing these amounts.</p>
+
+        <!-- Embedded flagged items -->
+        <div class="issue-block">
+          <h3><span class="icon">⚠️</span>Work-Related Expenses</h3>
+          <p>Your work-related expenses are up 40% compared to last year. 
+          We will need you to confirm substantiation (e.g., receipts or a logbook).
+          <br><em>This is an ATO focus area for 2025.</em></p>
+        </div>
+
+        <div class="issue-block">
+          <h3><span class="icon">⚠️</span>Rental Property</h3>
+          <p>Your interest deductions have increased by 30% compared to last year. 
+          Please confirm whether any loan redraws or private use are included, 
+          and check if any capital improvements were coded as repairs.</p>
+        </div>
+
+        <div class="issue-block">
+          <h3><span class="icon">⚠️</span>Cryptocurrency / CGT</h3>
+          <p>We have identified cryptocurrency disposals this year. Some assets were held 
+          for more than 12 months, which may qualify for the CGT discount. 
+          Please ensure cost base records are available.</p>
+        </div>
+
+        <div class="issue-block carried">
+          <h3><span class="icon">📂</span>CGT Disposal – Carried Forward to FY2026</h3>
+          <p>The sale of Asset XYZ is not included in this year’s return, as the contract date 
+          was 12 July 2025. This event has been carried forward to FY2026 and supporting 
+          documents have been retained.</p>
+        </div>
+
+        <!-- Continue cover letter -->
+        <p>Once you are satisfied that the Income Tax Return is correct, please sign and date Parts A 
+        and B of the attached Electronic Lodgement Declaration, as well as sign and date the 
+        Taxpayer’s Declaration.</p>
+
+        <p>Upon signing these Declarations, please send them to us so we can lodge your return 
+        electronically with the ATO. You should receive your Notice of Assessment within 
+        14 days of lodgement of the return. Please note that we have redacted your Tax File Number 
+        and bank account details to protect your identity for confidentiality reasons.</p>
+
+        <p>The Taxpayer’s Declaration that you are signing confirms that the information you have 
+        provided us for the preparation of your income tax return is true and correct and that you 
+        are authorising us as your registered tax agent to lodge the return on your behalf.</p>
+
+        <p>Please note that you must also retain all records relating to the compilation of the 
+        income tax return for five years (in most instances) after the Notice of Assessment 
+        is issued. This will include receipts for expenses, logbooks, and other records. If you 
+        do not have these records, or have any questions about the necessary records, 
+        please contact us.</p>
+
+        <p>We estimate that upon assessment you will be [required to pay income tax OR receive an 
+        income tax refund] of $xxx.xx. This amount has been calculated based on a taxable income 
+        of $xx,xxx.xx.<br>
+        [IF RELEVANT] Your Reportable Fringe Benefits figure for the year was $xx,xxx.xx.<br>
+        [IF RELEVANT] The amount of Higher Education Loan Program (HELP) repaid was $xx,xxx.xx.</p>
+
+        <p>We also enclose our account for the preparation and lodgement of your Income Tax Return.</p>
+
+        <p>Finally, we thank you for your support and the opportunity to be of service to you.
+        If you have further queries on any details contained in this letter or on any other matter, 
+        please feel free to contact us on [insert telephone number].</p>
+
+        <p>Yours faithfully,<br>[Insert Name and Title]</p>
+      </div>
     </div>
 
-    <p>Yours faithfully,<br><br>[Insert Name and Title]</p>
+    <!-- SECTION 4: ACTIONS -->
+    <div class="section actions">
+      <button class="btn-approve">Approve All Items</button>
+      <button class="btn-edit">Edit Client Letter</button>
+      <button class="btn-lock">Lock & Publish</button>
+    </div>
   </div>
 </body>
 </html>
