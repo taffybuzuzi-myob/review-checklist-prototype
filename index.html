@@ -68,6 +68,7 @@
     .card .card-body { padding: 14px; background: #ffffff; }
     .flag.card:hover { box-shadow: 0 10px 24px rgba(122,31,216,0.18); transform: translateY(-1px); transition: box-shadow .2s ease, transform .2s ease; }
     .chev { display: inline-block; transition: transform .15s ease; font-size: 14px; line-height: 1; }
+    .card.collapsed .card-header .chev { transform: rotate(-90deg); }
     .hidden { display: none; }
     /* Dashboard styles */
     .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
@@ -142,30 +143,30 @@
 
     <!-- REVIEW VIEW -->
     <div id="review-view" class="hidden">
-      <!-- HEADER -->
-      <div class="header">
+    <!-- HEADER -->
+    <div class="header">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-          <h1>Reviewer Summary – FY2025</h1>
+      <h1>Reviewer Summary – FY2025</h1>
           <div>
             <a class="btn-mini" id="pdf-link" href="#" target="_blank" rel="noopener">View full return (PDF)</a>
             <button class="btn-mini" id="btn-back-dashboard" type="button">← Back to dashboard</button>
           </div>
         </div>
         <div class="meta" id="meta-line">
-          <strong>Client:</strong> John Smith &nbsp;|&nbsp;
-          <strong>Preparer:</strong> A. Brown &nbsp;|&nbsp;
-          <strong>Reviewer:</strong> T. Lee &nbsp;|&nbsp;
-          <strong>Status:</strong> Draft &nbsp;|&nbsp;
-          <strong>Checklist:</strong> 9/11 complete
-        </div>
+        <strong>Client:</strong> John Smith &nbsp;|&nbsp;
+        <strong>Preparer:</strong> A. Brown &nbsp;|&nbsp;
+        <strong>Reviewer:</strong> T. Lee &nbsp;|&nbsp;
+        <strong>Status:</strong> Draft &nbsp;|&nbsp;
+        <strong>Checklist:</strong> 9/11 complete
       </div>
+    </div>
 
     <!-- SECTION 1: KEY ISSUES (Unified Cards) -->
     <div class="section hidden" id="section-cards">
-      <h2>🔹 Section 1 – Review Checklist (Reviewer’s view)</h2>
+      <h2>Review Checklist</h2>
 
       <!-- Card: CGT Disposal Carried Forward -->
-      <div class="flag card carried" data-key="cgt-cf">
+      <div class="flag card carried collapsed" data-key="cgt-cf">
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>CGT Disposal Carried Forward</div>
           <div>
@@ -262,7 +263,7 @@
       </div>
 
       <!-- Card: PAYG Instalments Trigger -->
-      <div class="flag card" data-key="payg">
+      <div class="flag card collapsed" data-key="payg">
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>PAYG Instalments Trigger</div>
           <div>
@@ -352,7 +353,7 @@
       </div>
 
       <!-- Card: Trust Distribution - Variance -->
-      <div class="flag card" data-key="trust">
+      <div class="flag card collapsed" data-key="trust">
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>Trust Distribution - Variance</div>
           <div>
@@ -424,13 +425,13 @@
           <strong>Audit trail</strong>
           <ul></ul>
         </div>
-        </div>
       </div>
+    </div>
 
       <!-- Card: Rental Property Debt Risk removed per request -->
 
       <!-- Card: Capital losses carried forward -->
-      <div class="flag card" data-key="cap-losses">
+      <div class="flag card collapsed" data-key="cap-losses">
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>Capital losses carried forward</div>
           <div>
@@ -522,8 +523,12 @@
     <!-- SECTION 2 removed: merged into Section 1 cards -->
 
     <!-- SECTION 3: CLIENT COMMUNICATION -->
-    <div class="section hidden" id="client-comm-section">
-      <h2>Section 3 – Client Communication Draft</h2>
+    <div class="section hidden collapsible collapsed" id="client-comm-section">
+      <div class="section-header" style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <h2>Client Communication Draft</h2>
+        <button class="btn-toggle" id="toggle-letter" type="button" aria-expanded="false" title="Expand"><span class="chev" aria-hidden>▾</span></button>
+      </div>
+      <div class="section-body">
       <div class="letter">
         <p>Dear John,</p>
 
@@ -571,6 +576,7 @@
         please feel free to contact us on [insert telephone number].</p>
 
         <p>Yours faithfully,<br>[Insert Name and Title]</p>
+      </div>
       </div>
     </div>
 
@@ -936,6 +942,39 @@
               capCard.querySelector('.flag-summary').textContent = '$'+Number(item18.schedule.capitalLossesCarriedForward).toLocaleString()+' carried forward. Ensure correct application this year.';
             }
           }
+          // Map P9 → PAYG card
+          const paygCard = document.querySelector('[data-key="payg"]');
+          if (paygCard && Array.isArray(data?.items)) {
+            const p9 = data.items.find(function(it){ return it.code === 'P9'; });
+            if (p9?.fields) {
+              const ni = p9.fields.netIncome ?? p9.fields.businessNet ?? null;
+              const hasWh = p9.fields.hasWithholding ?? false;
+              const sbo = p9.fields.smallBusinessOffsetEligible ?? false;
+              const parts = [];
+              if (ni != null) parts.push('Business net income $'+Number(ni).toLocaleString());
+              parts.push(hasWh ? 'with withholding' : 'no withholding');
+              const extra = sbo ? ' Eligible for small business income tax offset.' : '';
+              const summary = (parts.length ? parts.join(' – ') : 'Business income detected') + '. '+ (hasWh ? '' : 'Likely PAYG for FY2026.') + extra;
+              const el = paygCard.querySelector('.flag-summary');
+              if (el) el.textContent = summary.trim();
+            }
+          }
+          // Map Item 13 → Trust card
+          const trustCard = document.querySelector('[data-key="trust"]');
+          if (trustCard && Array.isArray(data?.items)) {
+            const it13 = data.items.find(function(it){ return it.code === '13'; });
+            if (it13?.fields) {
+              const tname = it13.fields.trustName || 'Trust';
+              const amt = it13.fields.distributionAmount ?? null;
+              const pct = it13.fields.beneficiarySharePct ?? null;
+              const summaryText = 'Distribution in '+(data.clientName || 'client')+"'s return differs from "+tname+ (amt!=null? ' (amount $'+Number(amt).toLocaleString()+')':'' ) + (pct!=null? ' – beneficiary '+pct+'%':'' ) + '.';
+              const sumEl = trustCard.querySelector('.flag-summary');
+              if (sumEl) sumEl.textContent = summaryText;
+              const docUl = trustCard.querySelector('details summary+ul, details ul');
+              const docLabel = trustCard.querySelector('details:nth-of-type(2) ul li');
+              if (docLabel) docLabel.textContent = tname+ ' – Distribution Statement 2025.pdf';
+            }
+          }
         }).catch(function(){ /* ignore missing data during prototype */ });
       }
 
@@ -990,6 +1029,28 @@
           alert('Checklist locked and ready to publish');
         });
       }
+
+      // Collapse/expand the client letter section
+      const letterToggle = document.getElementById('toggle-letter');
+      if (letterToggle) letterToggle.addEventListener('click', function(){
+        const section = document.getElementById('client-comm-section');
+        if (!section) return;
+        const isCollapsed = section.classList.toggle('collapsed');
+        // Toggle visibility of body
+        const body = section.querySelector('.section-body');
+        if (body) body.style.display = isCollapsed ? 'none' : 'block';
+        // Rotate chevron and aria
+        const chev = letterToggle.querySelector('.chev');
+        if (chev) chev.style.transform = isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)';
+        letterToggle.setAttribute('aria-expanded', String(!isCollapsed));
+        letterToggle.setAttribute('title', isCollapsed ? 'Expand' : 'Collapse');
+      });
+
+      // Ensure letter section starts collapsed
+      (function initLetterCollapsed(){
+        const body = document.querySelector('#client-comm-section .section-body');
+        if (body) body.style.display = 'none';
+      })();
     })();
   </script>
   </div>
