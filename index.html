@@ -24,8 +24,8 @@
     details { margin-top: 6px; background: #fff; border: 1px solid #e6e6e6; border-radius: 4px; padding: 8px; }
     details summary { cursor: pointer; font-weight: bold; }
     .letter { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 6px; line-height: 1.6; }
-    .issue-block { margin: 18px 0; padding: 12px; border-left: 5px solid #ff9800; background: #fff7e6; border-radius: 4px; }
-    .issue-block.carried { border-left: 5px solid #1976d2; background: #f1f7ff; }
+    .issue-block { margin: 18px 0; padding: 12px; border-left: 4px solid #b0b8c4; background: #f8f9fb; border-radius: 4px; }
+    .issue-block.carried { border-left: 4px solid #93a6d1; background: #f4f6fb; }
     .actions { text-align: center; margin-top: 16px; }
     /* New unified card header + status chips */
     .card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -97,8 +97,13 @@
         </details>
 
         <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+          <summary>Deep links – Tax return</summary>
+          <div>
+            <button class="btn-link" type="button">Open Tax return</button>
+            <button class="btn-link" type="button">Open Item 18 – Capital gains</button>
+            <button class="btn-link" type="button">Open Capital gains schedule</button>
+            <button class="btn-link" type="button">Open Capital gains worksheet</button>
+          </div>
         </details>
 
         <div class="action-row">
@@ -120,14 +125,14 @@
           <div class="card-title"><span class="icon">⚠️</span>PAYG Instalments Trigger</div>
           <span class="status status-draft" data-status>Draft</span>
         </div>
-        <p class="flag-summary">Taxable income: $185,000. Likely PAYG for FY2026.</p>
-        <p><strong>✅</strong> Consider cashflow advisory.</p>
+        <p class="flag-summary">New sole trader business income has no withholding. Likely PAYG for FY2026.</p>
+        <p><strong>✅</strong> Consider cashflow advisory and Small business income tax offset.</p>
 
         <label class="field-label" for="payg-note">AI draft – Reviewer note</label>
-        <textarea id="payg-note" class="reviewer-note">Taxable income $185k → PAYG instalments expected in FY2026.</textarea>
+        <textarea id="payg-note" class="reviewer-note">Sole trader income has no withholding → PAYG instalments expected for FY2026. Link to tax payable once return finalised. Confirm eligibility for small business income tax offset.</textarea>
 
         <label class="field-label" for="payg-client">AI draft – Client copy</label>
-        <textarea id="payg-client" class="client-copy">Your taxable income is about $185,000. You may enter PAYG instalments in FY2026. We can help plan for cashflow.</textarea>
+        <textarea id="payg-client" class="client-copy">You have new sole trader business income without tax withheld, so you may begin PAYG instalments in FY2026. Once the return is completed, we will confirm your tax payable and likely PAYG amounts. You may also be eligible for the small business income tax offset. We can help plan for cashflow.</textarea>
 
         <details>
           <summary>AI-suggested resources</summary>
@@ -147,8 +152,12 @@
         </details>
 
         <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+          <summary>Deep links – Tax return</summary>
+          <div>
+            <button class="btn-link" type="button">Open Tax return</button>
+            <button class="btn-link" type="button">Open Item P9 – Business income (non‑primary production)</button>
+            <button class="btn-link" type="button">Open Item 15 – Small business income tax offset</button>
+          </div>
         </details>
 
         <div class="action-row">
@@ -170,20 +179,18 @@
           <div class="card-title"><span class="icon">⚠️</span>Trust Distribution - Variance</div>
           <span class="status status-draft" data-status>Draft</span>
         </div>
-        <p class="flag-summary">Distribution in client return differs from trust statement.</p>
-        <p><strong>✅</strong> Confirm beneficiary share and reconcile with trust accounts.</p>
+        <p class="flag-summary">Distribution in Kerry's return differs from David's Family Trust ledger.</p>
+        <p><strong>✅</strong> Reviewer follow-up: confirm beneficiary share and reconcile with trust accounts.</p>
 
         <label class="field-label" for="trust-note">AI draft – Reviewer note</label>
-        <textarea id="trust-note" class="reviewer-note">Trust distribution inconsistent with supporting statement. Confirm allocation.</textarea>
+        <textarea id="trust-note" class="reviewer-note">Variance detected between Kerry's return and David's Family Trust distribution ledger. Confirm allocation and reconcile to trust accounts; amend return or request ledger correction as required.</textarea>
 
-        <label class="field-label" for="trust-client">AI draft – Client copy</label>
-        <textarea id="trust-client" class="client-copy">Your trust distribution in the return differs from the trust statement. We will confirm your beneficiary share and reconcile with the trust accounts.</textarea>
+        <!-- Reviewer-only: no client copy required -->
 
         <details>
           <summary>AI-suggested resources</summary>
           <ul>
             <li><label><input type="checkbox" class="res-choice" value="ATO: Trust distributions"> ATO: Trust distributions</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: Trust reconciliation checklist"> Internal: Trust reconciliation checklist</label></li>
           </ul>
           <button class="btn-link" type="button">Add Resource</button>
         </details>
@@ -191,19 +198,23 @@
         <details>
           <summary>Documents</summary>
           <ul>
-            <li>Trust_Statement_2025.pdf</li>
+            <li>David's Family Trust – Distribution Statement 2025.pdf</li>
           </ul>
           <button class="btn-doc" type="button">Attach / Link Document</button>
         </details>
 
         <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+          <summary>Deep links – Tax return & ledger</summary>
+          <div>
+            <button class="btn-link" type="button">Open Tax return</button>
+            <button class="btn-link" type="button">Open Item 13 – Partnerships and trusts (Distributions received)</button>
+            <button class="btn-link" type="button">Open Client Accounting – Trust ledger</button>
+          </div>
         </details>
 
         <div class="action-row">
           <button class="btn-approve" type="button" data-action="approve">Approve</button>
-          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <!-- Reviewer-only: no client letter toggle -->
           <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
           <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
           <button class="btn-edit" type="button" data-action="comment">Add comment</button>
@@ -214,60 +225,12 @@
         </div>
       </div>
 
-      <!-- Card: Rental Property Debt Risk -->
-      <div class="flag card" data-key="rental-debt">
-        <div class="card-header">
-          <div class="card-title"><span class="icon">⚠️</span>Rental Property Debt Risk</div>
-          <span class="status status-draft" data-status>Draft</span>
-        </div>
-        <p class="flag-summary">Interest deductions up 30% vs last year.</p>
-        <p><strong>✅</strong> Check redraw/private use; repairs vs capital improvements.</p>
+      <!-- Card: Rental Property Debt Risk removed per request -->
 
-        <label class="field-label" for="rentaldebt-note">AI draft – Reviewer note</label>
-        <textarea id="rentaldebt-note" class="reviewer-note">Rental property loan interest up 30%. Review for redraw/private use risk.</textarea>
-
-        <label class="field-label" for="rentaldebt-client">AI draft – Client copy</label>
-        <textarea id="rentaldebt-client" class="client-copy">Your rental loan interest is up 30% versus last year. We'll check for any redraw/private use and whether any capital improvements were coded as repairs.</textarea>
-
-        <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: Rental repairs vs improvements"> ATO: Rental repairs vs improvements</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: Rental interest checklist"> Internal: Rental interest checklist</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
-        </details>
-
-        <details>
-          <summary>Documents</summary>
-          <ul>
-            <li>Loan_Interest_Summary_2025.pdf</li>
-          </ul>
-          <button class="btn-doc" type="button">Attach / Link Document</button>
-        </details>
-
-        <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
-        </details>
-
-        <div class="action-row">
-          <button class="btn-approve" type="button" data-action="approve">Approve</button>
-          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
-          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
-          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
-          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
-        </div>
-        <div class="audit" hidden>
-          <strong>Audit trail</strong>
-          <ul></ul>
-        </div>
-      </div>
-
-      <!-- Card: Capital Losses Utilisation -->
+      <!-- Card: Capital losses carried forward -->
       <div class="flag card" data-key="cap-losses">
         <div class="card-header">
-          <div class="card-title"><span class="icon">⚠️</span>Capital Losses Utilisation</div>
+          <div class="card-title"><span class="icon">⚠️</span>Capital losses carried forward</div>
           <span class="status status-draft" data-status>Draft</span>
         </div>
         <p class="flag-summary">$42,000 carried forward. Ensure correct application this year.</p>
@@ -277,7 +240,7 @@
         <textarea id="caploss-note" class="reviewer-note">$42k capital losses carried forward. Check utilisation + planning.</textarea>
 
         <label class="field-label" for="caploss-client">AI draft – Client copy</label>
-        <textarea id="caploss-client" class="client-copy">You have $42,000 of capital losses carried forward. We'll ensure they are applied correctly this year and consider planning for future disposals.</textarea>
+        <textarea id="caploss-client" class="client-copy">You have $42,000 of capital losses carried forward. We will ensure correct application this year and use this as a planning opportunity to time future disposals tax‑effectively.</textarea>
 
         <details>
           <summary>AI-suggested resources</summary>
@@ -297,8 +260,13 @@
         </details>
 
         <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+          <summary>Deep links – Tax return</summary>
+          <div>
+            <button class="btn-link" type="button">Open Tax return</button>
+            <button class="btn-link" type="button">Open Item 18 – Capital gains</button>
+            <button class="btn-link" type="button">Open Capital gains losses</button>
+            <button class="btn-link" type="button">Open Capital gains worksheet</button>
+          </div>
         </details>
 
         <div class="action-row">
