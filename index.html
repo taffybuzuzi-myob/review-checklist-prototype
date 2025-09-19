@@ -70,13 +70,25 @@
     .chev { display: inline-block; transition: transform .15s ease; font-size: 14px; line-height: 1; }
     .hidden { display: none; }
     /* Dashboard styles */
-    .dash-header { display: flex; align-items: center; justify-content: space-between; }
+    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .subtabs { display: flex; gap: 10px; margin: 8px 0 16px; }
+    .subtab { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--brand-outline); background: #fff; cursor: pointer; font-size: 13px; }
+    .subtab.active { background: var(--brand-surface); color: var(--brand-primary-600); border-color: var(--brand-primary-400); }
+    .filters { display: grid; grid-template-columns: 1fr repeat(6, minmax(120px, auto)); gap: 10px; align-items: center; margin: 8px 0 14px; }
+    .filters .search { grid-column: 1 / span 1; }
+    .filters input[type="text"], .filters select { width: 100%; padding: 8px 10px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; }
+    .stats { display: flex; gap: 24px; margin: 12px 0 18px; }
+    .stat { display: flex; gap: 8px; align-items: baseline; color: #374151; }
+    .stat strong { font-size: 20px; }
     .table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
     .table th, .table td { padding: 12px 14px; border-bottom: 1px solid #edf1f7; text-align: left; }
     .table th { background: #fafbff; color: #374151; font-weight: 600; font-size: 14px; }
     .table tr:hover { background: #faf6ff; }
     .btn-mini { padding: 6px 10px; border-radius: 8px; font-size: 12px; background: var(--brand-primary-500); color: #fff; border: 1px solid var(--brand-outline); cursor: pointer; }
     .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; background: #eef2f7; color: #374151; border: 1px solid #d7dde6; }
+    .icon-btn { background: transparent; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px; cursor: pointer; }
+    .icon-btn:hover { background: var(--brand-surface); border-color: var(--brand-outline); }
+    .icon { width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
   </style>
 </head>
 <body>
@@ -86,6 +98,30 @@
       <div class="dash-header">
         <h2>Compliance – Returns in review</h2>
         <span class="pill">3 in review</span>
+      </div>
+      <div class="subtabs">
+        <button class="subtab">Activity Statements</button>
+        <button class="subtab active">Tax returns</button>
+      </div>
+      <div class="filters">
+        <div class="search"><input type="text" placeholder="Client name or code"></div>
+        <select><option>Tax year</option></select>
+        <select><option>Type</option></select>
+        <select><option>Office</option></select>
+        <select><option>Partner</option></select>
+        <select><option>Manager</option></select>
+        <select><option>Staff member</option></select>
+        <select><option>Family group</option></select>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>879</strong> <span>All unlodged</span></div>
+        <div class="stat"><strong>96</strong> <span>Not started</span></div>
+        <div class="stat"><strong>767</strong> <span>In progress</span></div>
+        <div class="stat"><strong>3</strong> <span>In review</span></div>
+        <div class="stat"><strong>7</strong> <span>Ready for client</span></div>
+        <div class="stat"><strong>1</strong> <span>Ready to lodge</span></div>
+        <div class="stat"><strong>0</strong> <span>Rejected</span></div>
+        <div class="stat"><strong>79</strong> <span>Lodged</span></div>
       </div>
       <table class="table">
         <thead>
@@ -851,7 +887,7 @@
             '<td>'+r.period+'</td>'+
             '<td>'+r.type+'</td>'+
             '<td><span class="pill">Review</span></td>'+
-            '<td><button class="btn-mini" data-open-review data-index="'+i+'">Open review checklist</button></td>'+
+            '<td><button class="icon-btn" aria-label="Open review checklist" title="Open review checklist" data-open-review data-index="'+i+'">📝</button></td>'+
             '<td>'+r.lodgement+'</td>'+
             '<td>'+r.status+'</td>'+
             '<td>'+r.statusDate+'</td>'+
