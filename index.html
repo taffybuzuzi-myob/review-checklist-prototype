@@ -61,170 +61,22 @@
 
     <!-- SECTION 1: KEY ISSUES (Unified Cards) -->
     <div class="section" id="section-cards">
-      <h2>Section 1 – Review & Publish</h2>
+      <h2>🔹 Section 1 – Review Checklist (Reviewer’s view)</h2>
 
-      <!-- Card: Work-Related Expenses -->
-      <div class="flag card" data-key="wre">
-        <div class="card-header">
-          <div class="card-title"><span class="icon">⚠️</span>Work-Related Expenses</div>
-          <span class="status status-draft" data-status>Draft</span>
-        </div>
-        <p class="flag-summary">Up 40% vs LY (threshold 20%).</p>
-
-        <label class="field-label" for="wre-note">AI draft – Reviewer note</label>
-        <textarea id="wre-note" class="reviewer-note">Confirm logbook/receipts to substantiate increased claim.</textarea>
-
-        <label class="field-label" for="wre-client">AI draft – Client copy</label>
-        <textarea id="wre-client" class="client-copy">Your work-related expenses are up 40% compared to last year. We will need you to confirm substantiation (e.g., receipts or a logbook). This is an ATO focus area for 2025.</textarea>
-
-        <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: Work-related expenses guide"> ATO: Work-related expenses guide</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: WRE substantiation checklist"> Internal: WRE substantiation checklist</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Benchmark: WRE in top 10% vs salary peers"> Benchmark: WRE in top 10% vs salary peers</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
-        </details>
-
-        <details>
-          <summary>Documents</summary>
-          <ul>
-            <li>WRE_Receipts_Q4.pdf</li>
-          </ul>
-          <button class="btn-doc" type="button">Attach / Link Document</button>
-        </details>
-
-        <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
-        </details>
-
-        <div class="action-row">
-          <button class="btn-approve" type="button" data-action="approve">Approve</button>
-          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
-          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
-          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
-          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
-        </div>
-        <div class="audit" hidden>
-          <strong>Audit trail</strong>
-          <ul></ul>
-        </div>
-      </div>
-
-      <!-- Card: Rental Property -->
-      <div class="flag card" data-key="rental">
-        <div class="card-header">
-          <div class="card-title"><span class="icon">⚠️</span>Rental Property</div>
-          <span class="status status-draft" data-status>Draft</span>
-        </div>
-        <p class="flag-summary">Interest deductions up 30% vs LY.</p>
-
-        <label class="field-label" for="rental-note">AI draft – Reviewer note</label>
-        <textarea id="rental-note" class="reviewer-note">Verify redraws/private use not included; check capital works vs repairs.</textarea>
-
-        <label class="field-label" for="rental-client">AI draft – Client copy</label>
-        <textarea id="rental-client" class="client-copy">Your interest deductions have increased by 30% compared to last year. Please confirm whether any loan redraws or private use are included, and check if any capital improvements were coded as repairs.</textarea>
-
-        <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: Rental repairs vs improvements"> ATO: Rental repairs vs improvements</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: Rental review checklist"> Internal: Rental review checklist</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
-        </details>
-
-        <details>
-          <summary>Documents</summary>
-          <ul>
-            <li>Rental_Statement_2025.pdf</li>
-            <li>Loan_Interest_Summary_2025.pdf</li>
-          </ul>
-          <button class="btn-doc" type="button">Attach / Link Document</button>
-        </details>
-
-        <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
-        </details>
-
-        <div class="action-row">
-          <button class="btn-approve" type="button" data-action="approve">Approve</button>
-          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
-          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
-          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
-          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
-        </div>
-        <div class="audit" hidden>
-          <strong>Audit trail</strong>
-          <ul></ul>
-        </div>
-      </div>
-
-      <!-- Card: Cryptocurrency / CGT -->
-      <div class="flag card" data-key="crypto">
-        <div class="card-header">
-          <div class="card-title"><span class="icon">⚠️</span>Cryptocurrency / CGT</div>
-          <span class="status status-draft" data-status>Draft</span>
-        </div>
-        <p class="flag-summary">Disposals detected; some assets held &gt; 12 months.</p>
-
-        <label class="field-label" for="crypto-note">AI draft – Reviewer note</label>
-        <textarea id="crypto-note" class="reviewer-note">Confirm CGT discount applied; cost base evidence attached.</textarea>
-
-        <label class="field-label" for="crypto-client">AI draft – Client copy</label>
-        <textarea id="crypto-client" class="client-copy">We have identified cryptocurrency disposals this year. Some assets were held for more than 12 months, which may qualify for the CGT discount. Please ensure cost base records are available.</textarea>
-
-        <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: Crypto assets and tax"> ATO: Crypto assets and tax</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: Crypto CGT checklist"> Internal: Crypto CGT checklist</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
-        </details>
-
-        <details>
-          <summary>Documents</summary>
-          <ul>
-            <li>Crypto_Trades_2025.csv</li>
-          </ul>
-          <button class="btn-doc" type="button">Attach / Link Document</button>
-        </details>
-
-        <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
-        </details>
-
-        <div class="action-row">
-          <button class="btn-approve" type="button" data-action="approve">Approve</button>
-          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
-          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
-          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
-          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
-        </div>
-        <div class="audit" hidden>
-          <strong>Audit trail</strong>
-          <ul></ul>
-        </div>
-      </div>
-
-      <!-- Card: CGT Disposal – carried forward (merged from Section 2) -->
+      <!-- Card: CGT Disposal Carried Forward -->
       <div class="flag card carried" data-key="cgt-cf">
         <div class="card-header">
-          <div class="card-title"><span class="icon">📂</span>CGT Disposal – Asset XYZ</div>
+          <div class="card-title"><span class="icon">⚠️</span>CGT Disposal Carried Forward</div>
           <span class="status status-carried" data-status>Carried forward</span>
         </div>
-        <p class="flag-summary"><strong>Contract date:</strong> 12 July 2025 → Event in FY2026. <strong>Settlement date:</strong> [dd/mm/yyyy]</p>
+        <p class="flag-summary">Contract date July 2025 → outside FY2025. Excluded and carried forward.</p>
+        <p><strong>✅</strong> Attach docs → auto carry to FY2026.</p>
 
         <label class="field-label" for="cgtcf-note">AI draft – Reviewer note</label>
-        <textarea id="cgtcf-note" class="reviewer-note">Correctly excluded from FY2025 and logged for FY2026. Client note prepared to explain absence this year.</textarea>
+        <textarea id="cgtcf-note" class="reviewer-note">CGT disposal contract July 2025 → falls in FY2026. Event auto-carried forward.</textarea>
 
         <label class="field-label" for="cgtcf-client">AI draft – Client copy</label>
-        <textarea id="cgtcf-client" class="client-copy">The sale of Asset XYZ is not included in this year’s return, as the contract date was 12 July 2025. This event has been carried forward to FY2026 and supporting documents have been retained.</textarea>
+        <textarea id="cgtcf-client" class="client-copy">Your CGT disposal contract occurred in July 2025, so the event falls into FY2026. It is excluded from this year and will be carried forward.</textarea>
 
         <details>
           <summary>AI-suggested resources</summary>
@@ -253,6 +105,256 @@
           <button class="btn-approve" type="button" data-action="approve">Approve</button>
           <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
           <label class="toggle"><input type="checkbox" data-action="carry-forward" checked> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
+        </div>
+      </div>
+
+      <!-- Card: PAYG Instalments Trigger -->
+      <div class="flag card" data-key="payg">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">⚠️</span>PAYG Instalments Trigger</div>
+          <span class="status status-draft" data-status>Draft</span>
+        </div>
+        <p class="flag-summary">Taxable income: $185,000. Likely PAYG for FY2026.</p>
+        <p><strong>✅</strong> Consider cashflow advisory.</p>
+
+        <label class="field-label" for="payg-note">AI draft – Reviewer note</label>
+        <textarea id="payg-note" class="reviewer-note">Taxable income $185k → PAYG instalments expected in FY2026.</textarea>
+
+        <label class="field-label" for="payg-client">AI draft – Client copy</label>
+        <textarea id="payg-client" class="client-copy">Your taxable income is about $185,000. You may enter PAYG instalments in FY2026. We can help plan for cashflow.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: PAYG instalments"> ATO: PAYG instalments</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: Cashflow advisory checklist"> Internal: Cashflow advisory checklist</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>PAYG_Estimator.pdf</li>
+          </ul>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+        </details>
+
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
+        </div>
+      </div>
+
+      <!-- Card: Trust Distribution - Variance -->
+      <div class="flag card" data-key="trust">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">⚠️</span>Trust Distribution - Variance</div>
+          <span class="status status-draft" data-status>Draft</span>
+        </div>
+        <p class="flag-summary">Distribution in client return differs from trust statement.</p>
+        <p><strong>✅</strong> Confirm beneficiary share and reconcile with trust accounts.</p>
+
+        <label class="field-label" for="trust-note">AI draft – Reviewer note</label>
+        <textarea id="trust-note" class="reviewer-note">Trust distribution inconsistent with supporting statement. Confirm allocation.</textarea>
+
+        <label class="field-label" for="trust-client">AI draft – Client copy</label>
+        <textarea id="trust-client" class="client-copy">Your trust distribution in the return differs from the trust statement. We will confirm your beneficiary share and reconcile with the trust accounts.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: Trust distributions"> ATO: Trust distributions</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: Trust reconciliation checklist"> Internal: Trust reconciliation checklist</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>Trust_Statement_2025.pdf</li>
+          </ul>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+        </details>
+
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
+        </div>
+      </div>
+
+      <!-- Card: Rental Property Debt Risk -->
+      <div class="flag card" data-key="rental-debt">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">⚠️</span>Rental Property Debt Risk</div>
+          <span class="status status-draft" data-status>Draft</span>
+        </div>
+        <p class="flag-summary">Interest deductions up 30% vs last year.</p>
+        <p><strong>✅</strong> Check redraw/private use; repairs vs capital improvements.</p>
+
+        <label class="field-label" for="rentaldebt-note">AI draft – Reviewer note</label>
+        <textarea id="rentaldebt-note" class="reviewer-note">Rental property loan interest up 30%. Review for redraw/private use risk.</textarea>
+
+        <label class="field-label" for="rentaldebt-client">AI draft – Client copy</label>
+        <textarea id="rentaldebt-client" class="client-copy">Your rental loan interest is up 30% versus last year. We'll check for any redraw/private use and whether any capital improvements were coded as repairs.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: Rental repairs vs improvements"> ATO: Rental repairs vs improvements</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: Rental interest checklist"> Internal: Rental interest checklist</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>Loan_Interest_Summary_2025.pdf</li>
+          </ul>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+        </details>
+
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
+        </div>
+      </div>
+
+      <!-- Card: Capital Losses Utilisation -->
+      <div class="flag card" data-key="cap-losses">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">⚠️</span>Capital Losses Utilisation</div>
+          <span class="status status-draft" data-status>Draft</span>
+        </div>
+        <p class="flag-summary">$42,000 carried forward. Ensure correct application this year.</p>
+        <p><strong>✅</strong> Flag planning for future disposals.</p>
+
+        <label class="field-label" for="caploss-note">AI draft – Reviewer note</label>
+        <textarea id="caploss-note" class="reviewer-note">$42k capital losses carried forward. Check utilisation + planning.</textarea>
+
+        <label class="field-label" for="caploss-client">AI draft – Client copy</label>
+        <textarea id="caploss-client" class="client-copy">You have $42,000 of capital losses carried forward. We'll ensure they are applied correctly this year and consider planning for future disposals.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: Capital losses"> ATO: Capital losses</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: CGT planning notes"> Internal: CGT planning notes</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>Capital_Losses_Schedule.pdf</li>
+          </ul>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+        </details>
+
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
+        </div>
+      </div>
+
+      <!-- Card: AirBnb income risk -->
+      <div class="flag card" data-key="gig-income">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">⚠️</span>AirBnb income risk</div>
+          <span class="status status-draft" data-status>Draft</span>
+        </div>
+        <p class="flag-summary">Uber/Airbnb detected. ATO targeting digital platform reporting.</p>
+        <p><strong>✅</strong> Confirm full disclosure and advise on records.</p>
+
+        <label class="field-label" for="gig-note">AI draft – Reviewer note</label>
+        <textarea id="gig-note" class="reviewer-note">Platform income (Uber/Airbnb) detected. Ensure full disclosure.</textarea>
+
+        <label class="field-label" for="gig-client">AI draft – Client copy</label>
+        <textarea id="gig-client" class="client-copy">We detected platform income (Uber/Airbnb). The ATO is targeting digital platform reporting. Please ensure full disclosure and maintain records.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: Sharing economy and tax"> ATO: Sharing economy and tax</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: Gig income disclosure checklist"> Internal: Gig income disclosure checklist</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
+
+        <details>
+          <summary>Documents</summary>
+          <ul>
+            <li>Platform_Statements_2025.pdf</li>
+          </ul>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
+        </details>
+
+        <details>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+        </details>
+
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
           <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
           <button class="btn-edit" type="button" data-action="comment">Add comment</button>
         </div>
