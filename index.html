@@ -68,24 +68,61 @@
     .card .card-body { padding: 14px; background: #ffffff; }
     .flag.card:hover { box-shadow: 0 10px 24px rgba(122,31,216,0.18); transform: translateY(-1px); transition: box-shadow .2s ease, transform .2s ease; }
     .chev { display: inline-block; transition: transform .15s ease; font-size: 14px; line-height: 1; }
+    .hidden { display: none; }
+    /* Dashboard styles */
+    .dash-header { display: flex; align-items: center; justify-content: space-between; }
+    .table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+    .table th, .table td { padding: 12px 14px; border-bottom: 1px solid #edf1f7; text-align: left; }
+    .table th { background: #fafbff; color: #374151; font-weight: 600; font-size: 14px; }
+    .table tr:hover { background: #faf6ff; }
+    .btn-mini { padding: 6px 10px; border-radius: 8px; font-size: 12px; background: var(--brand-primary-500); color: #fff; border: 1px solid var(--brand-outline); cursor: pointer; }
+    .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; background: #eef2f7; color: #374151; border: 1px solid #d7dde6; }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- HEADER -->
-    <div class="header">
-      <h1>Reviewer Summary – FY2025</h1>
-      <div class="meta">
-        <strong>Client:</strong> John Smith &nbsp;|&nbsp;
-        <strong>Preparer:</strong> A. Brown &nbsp;|&nbsp;
-        <strong>Reviewer:</strong> T. Lee &nbsp;|&nbsp;
-        <strong>Status:</strong> Draft &nbsp;|&nbsp;
-        <strong>Checklist:</strong> 9/11 complete
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboard-view" class="section">
+      <div class="dash-header">
+        <h2>Compliance – Returns in review</h2>
+        <span class="pill">3 in review</span>
       </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Client name</th>
+            <th>Period</th>
+            <th>Type</th>
+            <th>Next</th>
+            <th>Review</th>
+            <th>Lodgement due</th>
+            <th>Status</th>
+            <th>Status date</th>
+          </tr>
+        </thead>
+        <tbody id="returns-tbody"></tbody>
+      </table>
     </div>
 
+    <!-- REVIEW VIEW -->
+    <div id="review-view" class="hidden">
+      <!-- HEADER -->
+      <div class="header">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <h1>Reviewer Summary – FY2025</h1>
+          <button class="btn-mini" id="btn-back-dashboard" type="button">← Back to dashboard</button>
+        </div>
+        <div class="meta" id="meta-line">
+          <strong>Client:</strong> John Smith &nbsp;|&nbsp;
+          <strong>Preparer:</strong> A. Brown &nbsp;|&nbsp;
+          <strong>Reviewer:</strong> T. Lee &nbsp;|&nbsp;
+          <strong>Status:</strong> Draft &nbsp;|&nbsp;
+          <strong>Checklist:</strong> 9/11 complete
+        </div>
+      </div>
+
     <!-- SECTION 1: KEY ISSUES (Unified Cards) -->
-    <div class="section" id="section-cards">
+    <div class="section hidden" id="section-cards">
       <h2>🔹 Section 1 – Review Checklist (Reviewer’s view)</h2>
 
       <!-- Card: CGT Disposal Carried Forward -->
@@ -446,7 +483,7 @@
     <!-- SECTION 2 removed: merged into Section 1 cards -->
 
     <!-- SECTION 3: CLIENT COMMUNICATION -->
-    <div class="section">
+    <div class="section hidden" id="client-comm-section">
       <h2>Section 3 – Client Communication Draft</h2>
       <div class="letter">
         <p>Dear John,</p>
@@ -499,7 +536,7 @@
     </div>
 
     <!-- SECTION 4: ACTIONS -->
-    <div class="section actions">
+    <div class="section actions hidden" id="actions-section">
       <button class="btn-approve">Approve All Items</button>
       <button class="btn-edit">Edit Client Letter</button>
       <button class="btn-lock">Lock & Publish</button>
@@ -799,6 +836,57 @@
       }
 
       document.querySelectorAll('.flag.card').forEach(initCard);
+
+      // Populate dashboard mock data
+      const returns = [
+        { client: "Davids, Kerry", period: "Jul 2024 – Jun 2025", type: "Individual tax return", lodgement: "-", status: "In review", statusDate: "19 Sep 2025" },
+        { client: "Dean, James", period: "Jul 2021 – Jun 2022", type: "Individual tax return", lodgement: "-", status: "In review", statusDate: "30 Aug 2025" },
+        { client: "Four Leaf Clover Company Ltd", period: "Jul 2023 – Jun 2024", type: "Company tax return", lodgement: "-", status: "In review", statusDate: "5 Jun 2025" },
+      ];
+      const tbody = document.getElementById('returns-tbody');
+      if (tbody) {
+        tbody.innerHTML = returns.map(function(r, i){
+          return '<tr>'+
+            '<td>'+r.client+'</td>'+
+            '<td>'+r.period+'</td>'+
+            '<td>'+r.type+'</td>'+
+            '<td><span class="pill">Review</span></td>'+
+            '<td><button class="btn-mini" data-open-review data-index="'+i+'">Open review checklist</button></td>'+
+            '<td>'+r.lodgement+'</td>'+
+            '<td>'+r.status+'</td>'+
+            '<td>'+r.statusDate+'</td>'+
+          '</tr>'
+        }).join('');
+      }
+
+      function showReview(clientName) {
+        document.getElementById('dashboard-view')?.classList.add('hidden');
+        document.getElementById('review-view')?.classList.remove('hidden');
+        document.getElementById('section-cards')?.classList.remove('hidden');
+        document.getElementById('client-comm-section')?.classList.remove('hidden');
+        document.getElementById('actions-section')?.classList.remove('hidden');
+        const meta = document.getElementById('meta-line');
+        if (meta) meta.innerHTML = meta.innerHTML.replace(/Client:\s*[^&<]*/,'Client: '+clientName);
+      }
+
+      document.querySelectorAll('[data-open-review]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          const idx = this.getAttribute('data-index');
+          const selected = returns[Number(idx)]?.client || 'John Smith';
+          showReview(selected);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      const backBtn = document.getElementById('btn-back-dashboard');
+      if (backBtn) backBtn.addEventListener('click', function(){
+        document.getElementById('dashboard-view')?.classList.remove('hidden');
+        document.getElementById('review-view')?.classList.add('hidden');
+        document.getElementById('section-cards')?.classList.add('hidden');
+        document.getElementById('client-comm-section')?.classList.add('hidden');
+        document.getElementById('actions-section')?.classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
 
       // Footer actions
       const actionsSection = document.querySelector('.section.actions');
