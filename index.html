@@ -64,6 +64,7 @@
     .card.collapsed .card-body { display: none; }
     .card .card-body { padding: 14px; background: #ffffff; }
     .flag.card:hover { box-shadow: 0 10px 24px rgba(122,31,216,0.18); transform: translateY(-1px); transition: box-shadow .2s ease, transform .2s ease; }
+    .chev { display: inline-block; transition: transform .15s ease; font-size: 14px; line-height: 1; }
   </style>
 </head>
 <body>
@@ -89,7 +90,7 @@
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>CGT Disposal Carried Forward</div>
           <div>
-            <button class="btn-toggle" type="button" data-action="toggle">Collapse</button>
+            <button class="btn-toggle" type="button" data-action="toggle"><span class="chev" aria-hidden>▾</span></button>
             <span class="status status-carried" data-status>Carried forward</span>
           </div>
         </div>
@@ -186,7 +187,7 @@
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>PAYG Instalments Trigger</div>
           <div>
-            <button class="btn-toggle" type="button" data-action="toggle">Collapse</button>
+            <button class="btn-toggle" type="button" data-action="toggle"><span class="chev" aria-hidden>▾</span></button>
             <span class="status status-draft" data-status>Draft</span>
           </div>
         </div>
@@ -276,7 +277,7 @@
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>Trust Distribution - Variance</div>
           <div>
-            <button class="btn-toggle" type="button" data-action="toggle">Collapse</button>
+            <button class="btn-toggle" type="button" data-action="toggle"><span class="chev" aria-hidden>▾</span></button>
             <span class="status status-draft" data-status>Draft</span>
           </div>
         </div>
@@ -354,7 +355,7 @@
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>Capital losses carried forward</div>
           <div>
-            <button class="btn-toggle" type="button" data-action="toggle">Collapse</button>
+            <button class="btn-toggle" type="button" data-action="toggle"><span class="chev" aria-hidden>▾</span></button>
             <span class="status status-draft" data-status>Draft</span>
           </div>
         </div>
@@ -625,6 +626,7 @@
         }
         card.querySelectorAll('[data-insert="learn-more"]').forEach(function(btn){
           btn.addEventListener('click', function(e){
+            snapshotState(card);
             const label = e.target.closest('li')?.querySelector('label');
             const url = label?.querySelector('input')?.getAttribute('data-url') || '#';
             const text = label?.innerText?.trim() || 'Resource';
@@ -647,6 +649,7 @@
 
         card.querySelectorAll('[data-attach]').forEach(function(btn){
           btn.addEventListener('click', function(e){
+            snapshotState(card);
             const label = e.target.closest('li')?.querySelector('label');
             const text = label?.innerText?.trim() || 'Attachment';
             const audit = card.querySelector('.audit');
@@ -749,6 +752,7 @@
         });
 
         if (clientCopy) clientCopy.addEventListener('input', function() {
+          snapshotState(card);
           const checked = card.querySelector('[data-action="add-to-letter"]')?.checked;
           if (checked) {
             upsertLetterBlock(key, title, icon, clientCopy.value, card.querySelector('[data-action="carry-forward"]')?.checked);
@@ -762,7 +766,12 @@
         const toggleBtn = card.querySelector('[data-action="toggle"]');
         if (toggleBtn) toggleBtn.addEventListener('click', function(){
           card.classList.toggle('collapsed');
-          toggleBtn.textContent = card.classList.contains('collapsed') ? 'Expand' : 'Collapse';
+          const chev = toggleBtn.querySelector('.chev');
+          if (chev) {
+            chev.style.transform = card.classList.contains('collapsed') ? 'rotate(-90deg)' : 'rotate(0deg)';
+          }
+          toggleBtn.setAttribute('aria-expanded', String(!card.classList.contains('collapsed')));
+          toggleBtn.setAttribute('title', card.classList.contains('collapsed') ? 'Expand' : 'Collapse');
         });
 
         // Undo button
@@ -776,6 +785,39 @@
       }
 
       document.querySelectorAll('.flag.card').forEach(initCard);
+
+      // Footer actions
+      const actionsSection = document.querySelector('.section.actions');
+      if (actionsSection) {
+        const btns = actionsSection.querySelectorAll('button');
+        const approveAllBtn = btns[0];
+        const editLetterBtn = btns[1];
+        const lockBtn = btns[2];
+
+        if (approveAllBtn) approveAllBtn.addEventListener('click', function(){
+          document.querySelectorAll('.flag.card [data-action="approve"]').forEach(function(b){
+            b.click();
+          });
+        });
+
+        if (editLetterBtn) editLetterBtn.addEventListener('click', function(){
+          const letter = document.querySelector('.letter');
+          if (!letter) return;
+          const enabled = letter.getAttribute('contenteditable') === 'true';
+          letter.setAttribute('contenteditable', enabled ? 'false' : 'true');
+          letter.style.outline = enabled ? '' : '2px dashed var(--brand-outline)';
+          letter.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        if (lockBtn) lockBtn.addEventListener('click', function(){
+          document.querySelectorAll('.flag.card input, .flag.card textarea, .flag.card button').forEach(function(el){
+            el.disabled = true;
+          });
+          const meta = document.querySelector('.header .meta');
+          if (meta) meta.innerHTML = meta.innerHTML.replace(/Status:\s*[^&<]*/,'Status: Published');
+          alert('Checklist locked and ready to publish');
+        });
+      }
     })();
   </script>
   </div>
