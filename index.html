@@ -146,7 +146,10 @@
       <div class="header">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
           <h1>Reviewer Summary – FY2025</h1>
-          <button class="btn-mini" id="btn-back-dashboard" type="button">← Back to dashboard</button>
+          <div>
+            <a class="btn-mini" id="pdf-link" href="#" target="_blank" rel="noopener">View full return (PDF)</a>
+            <button class="btn-mini" id="btn-back-dashboard" type="button">← Back to dashboard</button>
+          </div>
         </div>
         <div class="meta" id="meta-line">
           <strong>Client:</strong> John Smith &nbsp;|&nbsp;
@@ -903,6 +906,37 @@
         document.getElementById('actions-section')?.classList.remove('hidden');
         const meta = document.getElementById('meta-line');
         if (meta) meta.innerHTML = meta.innerHTML.replace(/Client:\s*[^&<]*/,'Client: '+clientName);
+        // Link the PDF if available
+        const pdfLink = document.getElementById('pdf-link');
+        if (pdfLink) pdfLink.href = 'assets/docs/Kerry_Davids_FY2025_Individual_tax_return.pdf';
+        // Load JSON data and hydrate
+        fetch('data/return_2025_kerry_davids.json').then(function(r){ return r.json(); }).then(function(data){
+          // Update meta with year and maybe reviewer if present
+          if (meta && data?.clientName) {
+            meta.innerHTML = meta.innerHTML.replace(/Client:\s*[^&<]*/,'Client: '+data.clientName);
+          }
+          // Populate client letter intro and notes if present
+          if (data?.clientLetter) {
+            const issues = document.getElementById('letter-issues');
+            // Seed intro notes as a block
+            if (issues && Array.isArray(data.clientLetter.notes) && data.clientLetter.notes.length) {
+              const key = 'seed-notes';
+              const title = 'Notes for your return';
+              const icon = 'ℹ️';
+              const text = data.clientLetter.intro || '';
+              upsertLetterBlock(key, title, icon, text, false);
+              data.clientLetter.notes.forEach(function(n){ addNoteToLetter(key, n); });
+            }
+          }
+          // Optional: map item 18 amounts into the Capital losses and CGT cards if available
+          const capCard = document.querySelector('[data-key="cap-losses"]');
+          if (capCard && Array.isArray(data?.items)) {
+            const item18 = data.items.find(function(it){ return it.code === '18'; });
+            if (item18?.schedule?.capitalLossesCarriedForward != null) {
+              capCard.querySelector('.flag-summary').textContent = '$'+Number(item18.schedule.capitalLossesCarriedForward).toLocaleString()+' carried forward. Ensure correct application this year.';
+            }
+          }
+        }).catch(function(){ /* ignore missing data during prototype */ });
       }
 
       document.querySelectorAll('[data-open-review]').forEach(function(btn){
