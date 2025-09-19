@@ -101,6 +101,12 @@
     .viewer-grid label { color: #374151; }
     .viewer-grid input, .viewer-grid select { width: 100%; padding: 8px 10px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; }
     .img-modal-body img { max-width: 100%; height: auto; display: block; margin: 0 auto; border: 1px solid #edf1f7; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.1); }
+    /* Estimate card */
+    .summary-card { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 16px; align-items: center; }
+    .metric { background: #fff; border: 1px solid #edf1f7; border-radius: 10px; padding: 12px 14px; box-shadow: 0 4px 12px rgba(0,0,0,.05); }
+    .metric h4 { margin: 0 0 6px; font-size: 13px; color: #4b5563; font-weight: 600; }
+    .metric .value { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+    .metric small { color: #6b7280; }
   </style>
 </head>
 <body>
@@ -170,6 +176,24 @@
         <strong>Status:</strong> Draft &nbsp;|&nbsp;
         <strong>Checklist:</strong> 9/11 complete
       </div>
+        <div class="summary-card" id="estimate-strip" style="margin-top:12px;">
+          <div class="metric">
+            <h4>Taxable income</h4>
+            <div class="value" id="m-taxable">—</div>
+          </div>
+          <div class="metric">
+            <h4>Tax payable</h4>
+            <div class="value" id="m-tax">—</div>
+          </div>
+          <div class="metric">
+            <h4>Capital losses carried forward</h4>
+            <div class="value" id="m-losses">—</div>
+          </div>
+          <div class="metric">
+            <h4>Business net income (P9)</h4>
+            <div class="value" id="m-p9">—</div>
+          </div>
+        </div>
     </div>
 
     <!-- SECTION 1: KEY ISSUES (Unified Cards) -->
@@ -995,6 +1019,14 @@
               if (docLabel) docLabel.textContent = tname+ ' – Distribution Statement 2025.pdf';
             }
           }
+          // Populate the estimate strip
+          const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+          if (data?.summary?.taxableIncome != null) setVal('m-taxable', '$'+Number(data.summary.taxableIncome).toLocaleString());
+          if (data?.summary?.estimatedTaxPayable != null) setVal('m-tax', '$'+Number(data.summary.estimatedTaxPayable).toLocaleString());
+          const losses = (data?.items||[]).find(it=>it.code==='18')?.schedule?.capitalLossesCarriedForward;
+          if (losses != null) setVal('m-losses', '$'+Number(losses).toLocaleString());
+          const p9ni = (data?.items||[]).find(it=>it.code==='P9')?.fields?.netIncome;
+          if (p9ni != null) setVal('m-p9', '$'+Number(p9ni).toLocaleString());
         }).catch(function(){ /* ignore missing data during prototype */ });
       }
 
