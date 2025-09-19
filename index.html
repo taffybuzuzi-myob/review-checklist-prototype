@@ -102,11 +102,9 @@
     .viewer-grid input, .viewer-grid select { width: 100%; padding: 8px 10px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; }
     .img-modal-body img { max-width: 100%; height: auto; display: block; margin: 0 auto; border: 1px solid #edf1f7; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.1); }
     /* Estimate card */
-    .summary-card { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 16px; align-items: center; }
-    .metric { background: #fff; border: 1px solid #edf1f7; border-radius: 10px; padding: 12px 14px; box-shadow: 0 4px 12px rgba(0,0,0,.05); }
-    .metric h4 { margin: 0 0 6px; font-size: 13px; color: #4b5563; font-weight: 600; }
-    .metric .value { font-size: 20px; font-weight: 700; color: var(--text-primary); }
-    .metric small { color: #6b7280; }
+    .estimate { background:#fff;border:1px solid #edf1f7;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.06); padding: 12px 14px; }
+    .estimate-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+    .estimate-body img { width:100%; height:auto; border-radius:8px; border:1px solid #edf1f7; }
   </style>
 </head>
 <body>
@@ -176,22 +174,16 @@
         <strong>Status:</strong> Draft &nbsp;|&nbsp;
         <strong>Checklist:</strong> 9/11 complete
       </div>
-        <div class="summary-card" id="estimate-strip" style="margin-top:12px;">
-          <div class="metric">
-            <h4>Taxable income</h4>
-            <div class="value" id="m-taxable">—</div>
+        <div class="estimate" id="estimate-full" style="margin-top:12px;">
+          <div class="estimate-header">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <h3 style="margin:0;">Tax Estimate 2025</h3>
+              <button class="btn-toggle" id="toggle-estimate" type="button" aria-expanded="false" title="Expand"><span class="chev" aria-hidden>▾</span></button>
+            </div>
+            <button class="btn-mini" id="open-estimate-modal" type="button">Open larger</button>
           </div>
-          <div class="metric">
-            <h4>Tax payable</h4>
-            <div class="value" id="m-tax">—</div>
-          </div>
-          <div class="metric">
-            <h4>Capital losses carried forward</h4>
-            <div class="value" id="m-losses">—</div>
-          </div>
-          <div class="metric">
-            <h4>Business net income (P9)</h4>
-            <div class="value" id="m-p9">—</div>
+          <div class="estimate-body">
+            <img src="assets/docs/tax_estimate_2025.png" alt="Tax estimate"/>
           </div>
         </div>
     </div>
@@ -1081,6 +1073,34 @@
           alert('Checklist locked and ready to publish');
         });
       }
+
+      // Open larger estimate (image) in modal
+      const estBtn = document.getElementById('open-estimate-modal');
+      if (estBtn) estBtn.addEventListener('click', function(){
+        const html = '\n<div class="modal-overlay" data-return-viewer>\n  <div class="modal-card">\n    <div class="modal-header">\n      <div class="modal-title">Tax Estimate 2025</div>\n      <div class="modal-actions"><button class="btn-mini" data-close-viewer>Close</button></div>\n    </div>\n    <div class="modal-body img-modal-body">\n      <img src="assets/docs/tax_estimate_2025.png" alt="Tax estimate"/>\n    </div>\n  </div>\n</div>';
+        const wrap = document.createElement('div');
+        wrap.innerHTML = html;
+        document.body.appendChild(wrap.firstElementChild);
+      });
+
+      // Collapse/expand estimate image
+      const estToggle = document.getElementById('toggle-estimate');
+      if (estToggle) estToggle.addEventListener('click', function(){
+        const body = document.querySelector('#estimate-full .estimate-body');
+        if (!body) return;
+        const collapsed = body.style.display !== 'block' && body.style.display !== '' ? false : true;
+        // Toggle
+        body.style.display = collapsed ? 'none' : 'block';
+        const chev = estToggle.querySelector('.chev');
+        if (chev) chev.style.transform = collapsed ? 'rotate(-90deg)' : 'rotate(0deg)';
+        estToggle.setAttribute('aria-expanded', String(!collapsed));
+        estToggle.setAttribute('title', collapsed ? 'Expand' : 'Collapse');
+      });
+      // Start collapsed by default
+      (function initEstimateCollapsed(){
+        const body = document.querySelector('#estimate-full .estimate-body');
+        if (body) body.style.display = 'none';
+      })();
 
       // Open external resources for Item 18 from the Capital losses card
       function openInNewTab(url) {
