@@ -4,23 +4,34 @@
   <meta charset="UTF-8">
   <title>Reviewer Summary – FY2025</title>
   <style>
+    :root {
+      --brand-primary-600: #7a1fd8;
+      --brand-primary-500: #8a33de;
+      --brand-primary-400: #a657e8;
+      --brand-surface: #f7f3fd;
+      --brand-outline: #eadcfb;
+      --brand-link: #7a1fd8;
+      --brand-amber: #ffb74d;
+      --text-primary: #1f2937;
+      --text-muted: #4b5563;
+    }
     body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
     .container { max-width: 960px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
     h1, h2 { margin-top: 0; }
     .header { border-bottom: 2px solid #ddd; padding-bottom: 12px; margin-bottom: 20px; }
     .meta { color: #555; }
     .section { border: 1px solid #e6e6e6; margin-bottom: 18px; padding: 16px; border-radius: 6px; background: #fafafa; }
-    .flag { margin: 12px 0 16px; padding: 12px; border-left: 5px solid #ff9800; background: #fff7e6; border-radius: 4px; }
+    .flag { margin: 16px 0 20px; padding: 0; border-left: 5px solid #ff9800; background: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.08); border: 1px solid #eceff4; }
     .flag h3 { margin: 0 0 6px; }
-    .carried { border-left: 5px solid #1976d2; background: #f1f7ff; }
+    .carried { border-left: 5px solid #1976d2; }
     .icon { font-size: 18px; margin-right: 6px; }
     .controls { margin-top: 8px; }
     button { margin: 4px; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; }
     .btn-approve { background: #4caf50; color: white; }
-    .btn-edit { background: #2196f3; color: white; }
-    .btn-doc { background: #795548; color: white; }
-    .btn-link { background: #9c27b0; color: white; }
-    .btn-lock { background: #673ab7; color: white; }
+    .btn-edit { background: var(--brand-primary-600); color: white; }
+    .btn-doc { background: #6b7280; color: white; }
+    .btn-link { background: var(--brand-primary-500); color: white; }
+    .btn-lock { background: var(--brand-primary-600); color: white; }
     details { margin-top: 6px; background: #fff; border: 1px solid #e6e6e6; border-radius: 4px; padding: 8px; }
     details summary { cursor: pointer; font-weight: bold; }
     .letter { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 6px; line-height: 1.6; }
@@ -28,12 +39,12 @@
     .issue-block.carried { border-left: 4px solid #93a6d1; background: #f4f6fb; }
     .actions { text-align: center; margin-top: 16px; }
     /* New unified card header + status chips */
-    .card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .card-title { font-weight: bold; }
-    .status { padding: 2px 8px; border-radius: 999px; font-size: 12px; color: #333; background: #eee; border: 1px solid #ddd; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 14px; background: linear-gradient(90deg,var(--brand-surface) 0%, #ffffff 100%); border-bottom: 1px solid var(--brand-outline); }
+    .card-title { font-weight: 700; letter-spacing: 0.2px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
+    .status { padding: 4px 10px; border-radius: 999px; font-size: 12px; color: #333; background: #eef2f7; border: 1px solid #d7dde6; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.02); }
     .status-draft { background: #fff; }
     .status-approved { background: #e7f7ea; color: #1b5e20; border-color: #c8e6c9; }
-    .status-carried { background: #e7f0fb; color: #0d47a1; border-color: #bbdefb; }
+    .status-carried { background: #f1e8fb; color: #5b21b6; border-color: #e9d5ff; }
     .status-snoozed { background: #fff3cd; color: #795548; border-color: #ffe08a; }
     .flag-summary { margin: 6px 0 10px; color: #333; }
     .field-label { font-weight: bold; display: block; margin: 10px 0 6px; }
@@ -48,6 +59,11 @@
     .res-cat li { margin: 4px 0; }
     .res-actions { margin-left: 8px; }
     .learn-more-block { margin-top: 8px; }
+    .card-header .btn-toggle { background: #f2eafb; color: var(--text-primary); border: 1px solid var(--brand-outline); padding: 4px 8px; font-size: 12px; border-radius: 8px; cursor: pointer; transition: all .15s ease; }
+    .card-header .btn-toggle:hover { background: #eadcfb; }
+    .card.collapsed .card-body { display: none; }
+    .card .card-body { padding: 14px; background: #ffffff; }
+    .flag.card:hover { box-shadow: 0 10px 24px rgba(122,31,216,0.18); transform: translateY(-1px); transition: box-shadow .2s ease, transform .2s ease; }
   </style>
 </head>
 <body>
@@ -72,8 +88,12 @@
       <div class="flag card carried" data-key="cgt-cf">
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>CGT Disposal Carried Forward</div>
-          <span class="status status-carried" data-status>Carried forward</span>
+          <div>
+            <button class="btn-toggle" type="button" data-action="toggle">Collapse</button>
+            <span class="status status-carried" data-status>Carried forward</span>
+          </div>
         </div>
+        <div class="card-body">
         <p class="flag-summary">Contract date July 2025 → outside FY2025. Excluded and carried forward.</p>
         <p><strong>✅</strong> Attach docs → auto carry to FY2026.</p>
 
@@ -152,10 +172,12 @@
           <label class="toggle"><input type="checkbox" data-action="carry-forward" checked> Carry forward to FY2026</label>
           <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
           <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+          <button class="btn-edit" type="button" data-action="undo">Undo changes</button>
         </div>
         <div class="audit" hidden>
           <strong>Audit trail</strong>
           <ul></ul>
+        </div>
         </div>
       </div>
 
@@ -163,8 +185,12 @@
       <div class="flag card" data-key="payg">
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>PAYG Instalments Trigger</div>
-          <span class="status status-draft" data-status>Draft</span>
+          <div>
+            <button class="btn-toggle" type="button" data-action="toggle">Collapse</button>
+            <span class="status status-draft" data-status>Draft</span>
+          </div>
         </div>
+        <div class="card-body">
         <p class="flag-summary">New sole trader business income has no withholding. Likely PAYG for FY2026.</p>
         <p><strong>✅</strong> Consider cashflow advisory and Small business income tax offset.</p>
 
@@ -236,10 +262,12 @@
           <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
           <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
           <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+          <button class="btn-edit" type="button" data-action="undo">Undo changes</button>
         </div>
         <div class="audit" hidden>
           <strong>Audit trail</strong>
           <ul></ul>
+        </div>
         </div>
       </div>
 
@@ -247,8 +275,12 @@
       <div class="flag card" data-key="trust">
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>Trust Distribution - Variance</div>
-          <span class="status status-draft" data-status>Draft</span>
+          <div>
+            <button class="btn-toggle" type="button" data-action="toggle">Collapse</button>
+            <span class="status status-draft" data-status>Draft</span>
+          </div>
         </div>
+        <div class="card-body">
         <p class="flag-summary">Distribution in Kerry's return differs from David's Family Trust ledger.</p>
         <p><strong>✅</strong> Reviewer follow-up: confirm beneficiary share and reconcile with trust accounts.</p>
 
@@ -306,10 +338,12 @@
           <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
           <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
           <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+          <button class="btn-edit" type="button" data-action="undo">Undo changes</button>
         </div>
         <div class="audit" hidden>
           <strong>Audit trail</strong>
           <ul></ul>
+        </div>
         </div>
       </div>
 
@@ -319,8 +353,12 @@
       <div class="flag card" data-key="cap-losses">
         <div class="card-header">
           <div class="card-title"><span class="icon">⚠️</span>Capital losses carried forward</div>
-          <span class="status status-draft" data-status>Draft</span>
+          <div>
+            <button class="btn-toggle" type="button" data-action="toggle">Collapse</button>
+            <span class="status status-draft" data-status>Draft</span>
+          </div>
         </div>
+        <div class="card-body">
         <p class="flag-summary">$42,000 carried forward. Ensure correct application this year.</p>
         <p><strong>✅</strong> Flag planning for future disposals.</p>
 
@@ -389,62 +427,16 @@
           <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
           <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
           <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+          <button class="btn-edit" type="button" data-action="undo">Undo changes</button>
         </div>
         <div class="audit" hidden>
           <strong>Audit trail</strong>
           <ul></ul>
         </div>
-      </div>
-
-      <!-- Card: AirBnb income risk -->
-      <div class="flag card" data-key="gig-income">
-        <div class="card-header">
-          <div class="card-title"><span class="icon">⚠️</span>AirBnb income risk</div>
-          <span class="status status-draft" data-status>Draft</span>
-        </div>
-        <p class="flag-summary">Uber/Airbnb detected. ATO targeting digital platform reporting.</p>
-        <p><strong>✅</strong> Confirm full disclosure and advise on records.</p>
-
-        <label class="field-label" for="gig-note">AI draft – Reviewer note</label>
-        <textarea id="gig-note" class="reviewer-note">Platform income (Uber/Airbnb) detected. Ensure full disclosure.</textarea>
-
-        <label class="field-label" for="gig-client">AI draft – Client copy</label>
-        <textarea id="gig-client" class="client-copy">We detected platform income (Uber/Airbnb). The ATO is targeting digital platform reporting. Please ensure full disclosure and maintain records.</textarea>
-
-        <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: Sharing economy and tax"> ATO: Sharing economy and tax</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: Gig income disclosure checklist"> Internal: Gig income disclosure checklist</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
-        </details>
-
-        <details>
-          <summary>Documents</summary>
-          <ul>
-            <li>Platform_Statements_2025.pdf</li>
-          </ul>
-          <button class="btn-doc" type="button">Attach / Link Document</button>
-        </details>
-
-        <details>
-          <summary>Tax return</summary>
-          <button class="btn-link" type="button">Open Tax return</button>
-        </details>
-
-        <div class="action-row">
-          <button class="btn-approve" type="button" data-action="approve">Approve</button>
-          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
-          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
-          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
-          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
-        </div>
-        <div class="audit" hidden>
-          <strong>Audit trail</strong>
-          <ul></ul>
         </div>
       </div>
+
+      <!-- Card: AirBnb income risk removed per request -->
     </div>
 
     <!-- SECTION 2 removed: merged into Section 1 cards -->
@@ -573,6 +565,57 @@
         ul.appendChild(li);
       }
 
+      // --- Undo support per card ---
+      function snapshotState(card) {
+        const payload = {
+          status: card.querySelector('[data-status]')?.getAttribute('data-status-value') || 'draft',
+          reviewerNote: card.querySelector('.reviewer-note')?.value || '',
+          clientCopy: card.querySelector('.client-copy')?.value || '',
+          addToLetter: !!card.querySelector('[data-action="add-to-letter"]')?.checked,
+          carryForward: !!card.querySelector('[data-action="carry-forward"]')?.checked,
+          auditHtml: card.querySelector('.audit ul')?.innerHTML || '',
+          learnHtml: card.querySelector('.learn-links')?.innerHTML || ''
+        };
+        card._history = card._history || [];
+        card._history.push(payload);
+        if (card._history.length > 10) card._history.shift();
+      }
+
+      function undoLastChange(card) {
+        const hist = card._history || [];
+        if (!hist.length) return;
+        const prev = hist.pop();
+        const reviewer = card.querySelector('.reviewer-note');
+        if (reviewer) reviewer.value = prev.reviewerNote;
+        const client = card.querySelector('.client-copy');
+        if (client) {
+          client.value = prev.clientCopy;
+          client.dispatchEvent(new Event('input'));
+        }
+        const addTo = card.querySelector('[data-action="add-to-letter"]');
+        if (addTo) {
+          addTo.checked = prev.addToLetter;
+          addTo.dispatchEvent(new Event('change'));
+        }
+        const cf = card.querySelector('[data-action="carry-forward"]');
+        if (cf) {
+          cf.checked = prev.carryForward;
+          cf.dispatchEvent(new Event('change'));
+        }
+        setStatus(card, prev.status);
+        const auditUl = card.querySelector('.audit ul');
+        if (auditUl) {
+          card.querySelector('.audit').hidden = !prev.auditHtml;
+          auditUl.innerHTML = prev.auditHtml;
+        }
+        const learnUl = card.querySelector('.learn-links');
+        if (learnUl) {
+          const block = card.querySelector('.learn-more-block');
+          if (block) block.hidden = !prev.learnHtml;
+          learnUl.innerHTML = prev.learnHtml;
+        }
+      }
+
       function handleResourceActions(card) {
         const clientCopy = card.querySelector('.client-copy');
         const learnBlock = card.querySelector('.learn-more-block');
@@ -636,6 +679,7 @@
 
         const approveBtn = card.querySelector('[data-action="approve"]');
         if (approveBtn) approveBtn.addEventListener('click', function() {
+          snapshotState(card);
           setStatus(card, 'approved');
           const audit = card.querySelector('.audit');
           if (audit) {
@@ -649,6 +693,7 @@
 
         const carryTgl = card.querySelector('[data-action="carry-forward"]');
         if (carryTgl) carryTgl.addEventListener('change', function() {
+          snapshotState(card);
           setStatus(card, this.checked ? 'carried' : 'draft');
           const addToLetter = card.querySelector('[data-action="add-to-letter"]');
           if (addToLetter && addToLetter.checked) {
@@ -658,6 +703,7 @@
 
         const snoozeBtn = card.querySelector('[data-action="snooze"]');
         if (snoozeBtn) snoozeBtn.addEventListener('click', function() {
+          snapshotState(card);
           const chipVal = card.querySelector('[data-status]')?.getAttribute('data-status-value');
           const newState = chipVal === 'snoozed' ? 'draft' : 'snoozed';
           setStatus(card, newState);
@@ -673,6 +719,7 @@
 
         const commentBtn = card.querySelector('[data-action="comment"]');
         if (commentBtn) commentBtn.addEventListener('click', function() {
+          snapshotState(card);
           const note = prompt('Add comment (appears in audit trail; added to client letter if included):');
           if (!note) return;
           const audit = card.querySelector('.audit');
@@ -693,6 +740,7 @@
 
         const addToLetter = card.querySelector('[data-action="add-to-letter"]');
         if (addToLetter) addToLetter.addEventListener('change', function() {
+          snapshotState(card);
           if (this.checked) {
             upsertLetterBlock(key, title, icon, clientCopy?.value || '', card.querySelector('[data-action="carry-forward"]')?.checked);
           } else {
@@ -709,6 +757,22 @@
 
         // Wire up resource actions within this card
         handleResourceActions(card);
+
+        // Toggle collapse
+        const toggleBtn = card.querySelector('[data-action="toggle"]');
+        if (toggleBtn) toggleBtn.addEventListener('click', function(){
+          card.classList.toggle('collapsed');
+          toggleBtn.textContent = card.classList.contains('collapsed') ? 'Expand' : 'Collapse';
+        });
+
+        // Undo button
+        const undoBtn = card.querySelector('[data-action="undo"]');
+        if (undoBtn) undoBtn.addEventListener('click', function(){
+          undoLastChange(card);
+        });
+
+        // Take initial snapshot
+        snapshotState(card);
       }
 
       document.querySelectorAll('.flag.card').forEach(initCard);
