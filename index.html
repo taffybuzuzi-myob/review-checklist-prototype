@@ -27,6 +27,22 @@
     .issue-block { margin: 18px 0; padding: 12px; border-left: 5px solid #ff9800; background: #fff7e6; border-radius: 4px; }
     .issue-block.carried { border-left: 5px solid #1976d2; background: #f1f7ff; }
     .actions { text-align: center; margin-top: 16px; }
+    /* New unified card header + status chips */
+    .card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .card-title { font-weight: bold; }
+    .status { padding: 2px 8px; border-radius: 999px; font-size: 12px; color: #333; background: #eee; border: 1px solid #ddd; }
+    .status-draft { background: #fff; }
+    .status-approved { background: #e7f7ea; color: #1b5e20; border-color: #c8e6c9; }
+    .status-carried { background: #e7f0fb; color: #0d47a1; border-color: #bbdefb; }
+    .status-snoozed { background: #fff3cd; color: #795548; border-color: #ffe08a; }
+    .flag-summary { margin: 6px 0 10px; color: #333; }
+    .field-label { font-weight: bold; display: block; margin: 10px 0 6px; }
+    textarea { width: 100%; min-height: 72px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
+    .action-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 10px; }
+    .toggle { display: inline-flex; align-items: center; gap: 6px; }
+    .snoozed { opacity: 0.6; }
+    .audit { margin-top: 8px; font-size: 12px; color: #555; }
+    .audit ul { margin: 6px 0 0 18px; }
   </style>
 </head>
 <body>
@@ -43,42 +59,82 @@
       </div>
     </div>
 
-    <!-- SECTION 1: KEY ISSUES -->
-    <div class="section">
-      <h2>Section 1 – Key Issues (AI Flagged)</h2>
+    <!-- SECTION 1: KEY ISSUES (Unified Cards) -->
+    <div class="section" id="section-cards">
+      <h2>Section 1 – Review & Publish</h2>
 
-      <div class="flag">
-        <h3><span class="icon">⚠️</span>Work-Related Expenses</h3>
-        <p>Up 40% vs FY2024 (threshold 20%).</p>
-        <p><strong>AI reviewer note:</strong> Confirm logbook/receipts to substantiate increased claim.</p>
+      <!-- Card: Work-Related Expenses -->
+      <div class="flag card" data-key="wre">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">⚠️</span>Work-Related Expenses</div>
+          <span class="status status-draft" data-status>Draft</span>
+        </div>
+        <p class="flag-summary">Up 40% vs LY (threshold 20%).</p>
+
+        <label class="field-label" for="wre-note">AI draft – Reviewer note</label>
+        <textarea id="wre-note" class="reviewer-note">Confirm logbook/receipts to substantiate increased claim.</textarea>
+
+        <label class="field-label" for="wre-client">AI draft – Client copy</label>
+        <textarea id="wre-client" class="client-copy">Your work-related expenses are up 40% compared to last year. We will need you to confirm substantiation (e.g., receipts or a logbook). This is an ATO focus area for 2025.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: Work-related expenses guide"> ATO: Work-related expenses guide</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: WRE substantiation checklist"> Internal: WRE substantiation checklist</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Benchmark: WRE in top 10% vs salary peers"> Benchmark: WRE in top 10% vs salary peers</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
 
         <details>
           <summary>Documents</summary>
           <ul>
             <li>WRE_Receipts_Q4.pdf</li>
           </ul>
-          <button class="btn-doc">Attach / Link Document</button>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
         </details>
 
         <details>
-          <summary>Resources</summary>
-          <ul>
-            <li>ATO: Work-related expenses guide</li>
-            <li>Internal: WRE substantiation checklist</li>
-          </ul>
-          <button class="btn-link">Add Resource</button>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
         </details>
 
-        <div class="controls">
-          <button class="btn-approve">Approve</button>
-          <button class="btn-edit">Edit Note</button>
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
         </div>
       </div>
 
-      <div class="flag">
-        <h3><span class="icon">⚠️</span>Rental Property</h3>
-        <p>Interest deductions up 30% vs FY2024.</p>
-        <p><strong>AI reviewer note:</strong> Verify redraws/private use not included; check capital works vs repairs.</p>
+      <!-- Card: Rental Property -->
+      <div class="flag card" data-key="rental">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">⚠️</span>Rental Property</div>
+          <span class="status status-draft" data-status>Draft</span>
+        </div>
+        <p class="flag-summary">Interest deductions up 30% vs LY.</p>
+
+        <label class="field-label" for="rental-note">AI draft – Reviewer note</label>
+        <textarea id="rental-note" class="reviewer-note">Verify redraws/private use not included; check capital works vs repairs.</textarea>
+
+        <label class="field-label" for="rental-client">AI draft – Client copy</label>
+        <textarea id="rental-client" class="client-copy">Your interest deductions have increased by 30% compared to last year. Please confirm whether any loan redraws or private use are included, and check if any capital improvements were coded as repairs.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: Rental repairs vs improvements"> ATO: Rental repairs vs improvements</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: Rental review checklist"> Internal: Rental review checklist</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
 
         <details>
           <summary>Documents</summary>
@@ -86,61 +142,98 @@
             <li>Rental_Statement_2025.pdf</li>
             <li>Loan_Interest_Summary_2025.pdf</li>
           </ul>
-          <button class="btn-doc">Attach / Link Document</button>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
         </details>
 
         <details>
-          <summary>Resources</summary>
-          <ul>
-            <li>ATO: Rental repairs vs improvements</li>
-            <li>Internal: Rental review checklist</li>
-          </ul>
-          <button class="btn-link">Add Resource</button>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
         </details>
 
-        <div class="controls">
-          <button class="btn-approve">Approve</button>
-          <button class="btn-edit">Edit Note</button>
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
         </div>
       </div>
 
-      <div class="flag">
-        <h3><span class="icon">⚠️</span>Cryptocurrency / CGT</h3>
-        <p>Disposals detected; some assets held &gt; 12 months.</p>
-        <p><strong>AI reviewer note:</strong> Confirm CGT discount applied; cost base evidence attached.</p>
+      <!-- Card: Cryptocurrency / CGT -->
+      <div class="flag card" data-key="crypto">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">⚠️</span>Cryptocurrency / CGT</div>
+          <span class="status status-draft" data-status>Draft</span>
+        </div>
+        <p class="flag-summary">Disposals detected; some assets held &gt; 12 months.</p>
+
+        <label class="field-label" for="crypto-note">AI draft – Reviewer note</label>
+        <textarea id="crypto-note" class="reviewer-note">Confirm CGT discount applied; cost base evidence attached.</textarea>
+
+        <label class="field-label" for="crypto-client">AI draft – Client copy</label>
+        <textarea id="crypto-client" class="client-copy">We have identified cryptocurrency disposals this year. Some assets were held for more than 12 months, which may qualify for the CGT discount. Please ensure cost base records are available.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: Crypto assets and tax"> ATO: Crypto assets and tax</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: Crypto CGT checklist"> Internal: Crypto CGT checklist</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
 
         <details>
           <summary>Documents</summary>
           <ul>
             <li>Crypto_Trades_2025.csv</li>
           </ul>
-          <button class="btn-doc">Attach / Link Document</button>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
         </details>
 
         <details>
-          <summary>Resources</summary>
-          <ul>
-            <li>ATO: Crypto assets and tax</li>
-            <li>Internal: Crypto CGT checklist</li>
-          </ul>
-          <button class="btn-link">Add Resource</button>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
         </details>
 
-        <div class="controls">
-          <button class="btn-approve">Approve</button>
-          <button class="btn-edit">Edit Note</button>
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward"> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
         </div>
       </div>
-    </div>
 
-    <!-- SECTION 2: CARRIED FORWARD -->
-    <div class="section">
-      <h2>Section 2 – Carried Forward Items</h2>
-      <div class="flag carried">
-        <h3><span class="icon">📂</span>CGT Disposal – Asset XYZ</h3>
-        <p><strong>Contract date:</strong> 12 July 2025 → Event in FY2026<br>
-           <strong>Settlement date:</strong> [dd/mm/yyyy]</p>
-        <p><strong>AI reviewer note:</strong> Correctly excluded from FY2025 and logged for FY2026. Client note prepared to explain absence this year.</p>
+      <!-- Card: CGT Disposal – carried forward (merged from Section 2) -->
+      <div class="flag card carried" data-key="cgt-cf">
+        <div class="card-header">
+          <div class="card-title"><span class="icon">📂</span>CGT Disposal – Asset XYZ</div>
+          <span class="status status-carried" data-status>Carried forward</span>
+        </div>
+        <p class="flag-summary"><strong>Contract date:</strong> 12 July 2025 → Event in FY2026. <strong>Settlement date:</strong> [dd/mm/yyyy]</p>
+
+        <label class="field-label" for="cgtcf-note">AI draft – Reviewer note</label>
+        <textarea id="cgtcf-note" class="reviewer-note">Correctly excluded from FY2025 and logged for FY2026. Client note prepared to explain absence this year.</textarea>
+
+        <label class="field-label" for="cgtcf-client">AI draft – Client copy</label>
+        <textarea id="cgtcf-client" class="client-copy">The sale of Asset XYZ is not included in this year’s return, as the contract date was 12 July 2025. This event has been carried forward to FY2026 and supporting documents have been retained.</textarea>
+
+        <details>
+          <summary>AI-suggested resources</summary>
+          <ul>
+            <li><label><input type="checkbox" class="res-choice" value="ATO: CGT events – contract vs settlement"> ATO: CGT events – contract vs settlement</label></li>
+            <li><label><input type="checkbox" class="res-choice" value="Internal: CGT timing explainer"> Internal: CGT timing explainer</label></li>
+          </ul>
+          <button class="btn-link" type="button">Add Resource</button>
+        </details>
 
         <details>
           <summary>Documents</summary>
@@ -148,24 +241,29 @@
             <li>Contract.pdf</li>
             <li>Settlement.pdf</li>
           </ul>
-          <button class="btn-doc">Attach / Link Document</button>
+          <button class="btn-doc" type="button">Attach / Link Document</button>
         </details>
 
         <details>
-          <summary>Resources</summary>
-          <ul>
-            <li>ATO: CGT events – contract vs settlement</li>
-            <li>Internal: CGT timing explainer</li>
-          </ul>
-          <button class="btn-link">Add Resource</button>
+          <summary>Deep links</summary>
+          <button class="btn-link" type="button">Open related schedule / worksheet</button>
         </details>
 
-        <div class="controls">
-          <button class="btn-approve">Approve</button>
-          <button class="btn-edit">Edit Note</button>
+        <div class="action-row">
+          <button class="btn-approve" type="button" data-action="approve">Approve</button>
+          <label class="toggle"><input type="checkbox" data-action="add-to-letter"> Add to client letter</label>
+          <label class="toggle"><input type="checkbox" data-action="carry-forward" checked> Carry forward to FY2026</label>
+          <button class="btn-edit" type="button" data-action="snooze">Snooze / Not applicable</button>
+          <button class="btn-edit" type="button" data-action="comment">Add comment</button>
+        </div>
+        <div class="audit" hidden>
+          <strong>Audit trail</strong>
+          <ul></ul>
         </div>
       </div>
     </div>
+
+    <!-- SECTION 2 removed: merged into Section 1 cards -->
 
     <!-- SECTION 3: CLIENT COMMUNICATION -->
     <div class="section">
@@ -181,34 +279,8 @@
         and other disclosures in the return are dependent on the Australian Taxation Office (ATO) 
         cross-referencing these amounts.</p>
 
-        <!-- Embedded flagged items -->
-        <div class="issue-block">
-          <h3><span class="icon">⚠️</span>Work-Related Expenses</h3>
-          <p>Your work-related expenses are up 40% compared to last year. 
-          We will need you to confirm substantiation (e.g., receipts or a logbook).
-          <br><em>This is an ATO focus area for 2025.</em></p>
-        </div>
-
-        <div class="issue-block">
-          <h3><span class="icon">⚠️</span>Rental Property</h3>
-          <p>Your interest deductions have increased by 30% compared to last year. 
-          Please confirm whether any loan redraws or private use are included, 
-          and check if any capital improvements were coded as repairs.</p>
-        </div>
-
-        <div class="issue-block">
-          <h3><span class="icon">⚠️</span>Cryptocurrency / CGT</h3>
-          <p>We have identified cryptocurrency disposals this year. Some assets were held 
-          for more than 12 months, which may qualify for the CGT discount. 
-          Please ensure cost base records are available.</p>
-        </div>
-
-        <div class="issue-block carried">
-          <h3><span class="icon">📂</span>CGT Disposal – Carried Forward to FY2026</h3>
-          <p>The sale of Asset XYZ is not included in this year’s return, as the contract date 
-          was 12 July 2025. This event has been carried forward to FY2026 and supporting 
-          documents have been retained.</p>
-        </div>
+        <!-- Dynamic flagged items selected from Section 1 cards will render here -->
+        <div id="letter-issues"></div>
 
         <!-- Continue cover letter -->
         <p>Once you are satisfied that the Income Tax Return is correct, please sign and date Parts A 
@@ -252,6 +324,146 @@
       <button class="btn-edit">Edit Client Letter</button>
       <button class="btn-lock">Lock & Publish</button>
     </div>
+  <script>
+    (function() {
+      function nowIso() {
+        try { return new Date().toISOString(); } catch(e) { return '' }
+      }
+
+      function setStatus(card, status) {
+        const chip = card.querySelector('[data-status]');
+        if (!chip) return;
+        chip.classList.remove('status-draft','status-approved','status-carried','status-snoozed');
+        if (status === 'approved') {
+          chip.textContent = 'Approved';
+          chip.classList.add('status-approved');
+          card.classList.remove('snoozed');
+        } else if (status === 'carried') {
+          chip.textContent = 'Carried forward';
+          chip.classList.add('status-carried');
+          card.classList.remove('snoozed');
+        } else if (status === 'snoozed') {
+          chip.textContent = 'Snoozed';
+          chip.classList.add('status-snoozed');
+          card.classList.add('snoozed');
+        } else {
+          chip.textContent = 'Draft';
+          chip.classList.add('status-draft');
+          card.classList.remove('snoozed');
+        }
+        chip.setAttribute('data-status-value', status);
+      }
+
+      function upsertLetterBlock(key, title, icon, text, carried) {
+        const container = document.getElementById('letter-issues');
+        if (!container) return;
+        let block = container.querySelector('[data-letter-key="'+key+'"]');
+        if (!text || text.trim() === '') {
+          if (block) block.remove();
+          return;
+        }
+        if (!block) {
+          block = document.createElement('div');
+          block.className = 'issue-block'+(carried ? ' carried' : '');
+          block.setAttribute('data-letter-key', key);
+          block.innerHTML = '<h3><span class="icon">'+icon+'</span>'+title+'</h3><p class="copy"></p>';
+          container.appendChild(block);
+        } else {
+          block.className = 'issue-block'+(carried ? ' carried' : '');
+          const h3 = block.querySelector('h3');
+          if (h3) h3.innerHTML = '<span class="icon">'+icon+'</span>'+title;
+        }
+        const p = block.querySelector('.copy');
+        if (p) p.textContent = text;
+      }
+
+      function removeLetterBlock(key) {
+        const container = document.getElementById('letter-issues');
+        const block = container && container.querySelector('[data-letter-key="'+key+'"]');
+        if (block) block.remove();
+      }
+
+      function initCard(card) {
+        const key = card.getAttribute('data-key');
+        const title = card.querySelector('.card-title')?.textContent?.trim() || '';
+        const icon = card.querySelector('.card-title .icon')?.textContent || '';
+        const clientCopy = card.querySelector('.client-copy');
+
+        // Initial carried status
+        const carriedChecked = card.querySelector('[data-action="carry-forward"]')?.checked;
+        if (carriedChecked) setStatus(card, 'carried');
+
+        const approveBtn = card.querySelector('[data-action="approve"]');
+        if (approveBtn) approveBtn.addEventListener('click', function() {
+          setStatus(card, 'approved');
+          const audit = card.querySelector('.audit');
+          if (audit) {
+            audit.hidden = false;
+            const ul = audit.querySelector('ul');
+            const li = document.createElement('li');
+            li.textContent = nowIso()+': Approved by reviewer';
+            ul.appendChild(li);
+          }
+        });
+
+        const carryTgl = card.querySelector('[data-action="carry-forward"]');
+        if (carryTgl) carryTgl.addEventListener('change', function() {
+          setStatus(card, this.checked ? 'carried' : 'draft');
+          const addToLetter = card.querySelector('[data-action="add-to-letter"]');
+          if (addToLetter && addToLetter.checked) {
+            upsertLetterBlock(key, title, icon, clientCopy?.value || '', this.checked);
+          }
+        });
+
+        const snoozeBtn = card.querySelector('[data-action="snooze"]');
+        if (snoozeBtn) snoozeBtn.addEventListener('click', function() {
+          const chipVal = card.querySelector('[data-status]')?.getAttribute('data-status-value');
+          const newState = chipVal === 'snoozed' ? 'draft' : 'snoozed';
+          setStatus(card, newState);
+          const audit = card.querySelector('.audit');
+          if (audit) {
+            audit.hidden = false;
+            const ul = audit.querySelector('ul');
+            const li = document.createElement('li');
+            li.textContent = nowIso()+': '+(newState==='snoozed'?'Snoozed/Not applicable':'Unsnoozed');
+            ul.appendChild(li);
+          }
+        });
+
+        const commentBtn = card.querySelector('[data-action="comment"]');
+        if (commentBtn) commentBtn.addEventListener('click', function() {
+          const note = prompt('Add comment (will appear in audit trail):');
+          if (!note) return;
+          const audit = card.querySelector('.audit');
+          if (audit) {
+            audit.hidden = false;
+            const ul = audit.querySelector('ul');
+            const li = document.createElement('li');
+            li.textContent = nowIso()+': '+note;
+            ul.appendChild(li);
+          }
+        });
+
+        const addToLetter = card.querySelector('[data-action="add-to-letter"]');
+        if (addToLetter) addToLetter.addEventListener('change', function() {
+          if (this.checked) {
+            upsertLetterBlock(key, title, icon, clientCopy?.value || '', card.querySelector('[data-action="carry-forward"]')?.checked);
+          } else {
+            removeLetterBlock(key);
+          }
+        });
+
+        if (clientCopy) clientCopy.addEventListener('input', function() {
+          const checked = card.querySelector('[data-action="add-to-letter"]')?.checked;
+          if (checked) {
+            upsertLetterBlock(key, title, icon, clientCopy.value, card.querySelector('[data-action="carry-forward"]')?.checked);
+          }
+        });
+      }
+
+      document.querySelectorAll('.flag.card').forEach(initCard);
+    })();
+  </script>
   </div>
 </body>
 </html>
