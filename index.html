@@ -43,6 +43,11 @@
     .snoozed { opacity: 0.6; }
     .audit { margin-top: 8px; font-size: 12px; color: #555; }
     .audit ul { margin: 6px 0 0 18px; }
+    .res-cat { margin: 8px 0; }
+    .res-cat h4 { margin: 6px 0; font-size: 14px; }
+    .res-cat li { margin: 4px 0; }
+    .res-actions { margin-left: 8px; }
+    .learn-more-block { margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -79,12 +84,47 @@
         <textarea id="cgtcf-client" class="client-copy">Your CGT disposal contract occurred in July 2025, so the event falls into FY2026. It is excluded from this year and will be carried forward.</textarea>
 
         <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: CGT events – contract vs settlement"> ATO: CGT events – contract vs settlement</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: CGT timing explainer"> Internal: CGT timing explainer</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
+          <summary>Suggested resources</summary>
+          <div class="res-cat">
+            <h4>ATO guidance</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="ATO: CGT events – contract vs settlement" data-url="https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/when-a-cgt-event-occurs"> ATO: CGT events – contract vs settlement</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-insert="learn-more">Insert into client copy</button> <button class="btn-doc" type="button" data-attach>Attach to item</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="res-cat">
+            <h4>Legislation / rulings</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="ITAA 1997 s104-10 – CGT event A1" data-url="https://www.legislation.gov.au/Series/C2004A05217"> ITAA 1997 s104-10 – CGT event A1</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-insert="learn-more">Insert into client copy</button> <button class="btn-doc" type="button" data-attach>Attach to item</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="res-cat">
+            <h4>Practice resources</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="Internal: CGT timing explainer" data-url="https://intranet.myob/resources/tax/CGT_timing_explainer.pdf"> Internal: CGT timing explainer (PDF)</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-attach>Attach to item</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="res-cat">
+            <h4>Benchmarking</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="Peer percentile: CGT deferral common in 60th percentile" data-url="https://intranet.myob/benchmarks/cgt-deferral"> Peer percentile: CGT deferral common in 60th percentile</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-insert="learn-more">Insert into client copy</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="learn-more-block" hidden>
+            <strong>Learn more links added:</strong>
+            <ul class="learn-links"></ul>
+          </div>
         </details>
 
         <details>
@@ -97,7 +137,7 @@
         </details>
 
         <details>
-          <summary>Deep links – Tax return</summary>
+          <summary>Tax return</summary>
           <div>
             <button class="btn-link" type="button">Open Tax return</button>
             <button class="btn-link" type="button">Open Item 18 – Capital gains</button>
@@ -135,12 +175,42 @@
         <textarea id="payg-client" class="client-copy">You have new sole trader business income without tax withheld, so you may begin PAYG instalments in FY2026. Once the return is completed, we will confirm your tax payable and likely PAYG amounts. You may also be eligible for the small business income tax offset. We can help plan for cashflow.</textarea>
 
         <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: PAYG instalments"> ATO: PAYG instalments</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: Cashflow advisory checklist"> Internal: Cashflow advisory checklist</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
+          <summary>Suggested resources</summary>
+          <div class="res-cat">
+            <h4>ATO guidance</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="ATO: PAYG instalments" data-url="https://www.ato.gov.au/business/payg-instalments/"> ATO: PAYG instalments</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-insert="learn-more">Insert into client copy</button> <button class="btn-doc" type="button" data-attach>Attach to item</button></span>
+              </li>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="ATO: Small business income tax offset" data-url="https://www.ato.gov.au/businesses-and-organisations/small-business-entity-concessions/income-tax/small-business-income-tax-offset"> ATO: Small business income tax offset</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-insert="learn-more">Insert into client copy</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="res-cat">
+            <h4>Practice resources</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="Internal: Cashflow advisory checklist" data-url="https://intranet.myob/resources/advisory/Cashflow_Advisory_Checklist.pdf"> Internal: Cashflow advisory checklist</label>
+                <span class="res-actions"><button class="btn-doc" type="button" data-attach>Attach to item</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="res-cat">
+            <h4>Benchmarking</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="PAYG prevalence among sole traders in bracket" data-url="https://intranet.myob/benchmarks/payg-prevalence"> PAYG prevalence among sole traders in bracket</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-insert="learn-more">Insert into client copy</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="learn-more-block" hidden>
+            <strong>Learn more links added:</strong>
+            <ul class="learn-links"></ul>
+          </div>
         </details>
 
         <details>
@@ -152,7 +222,7 @@
         </details>
 
         <details>
-          <summary>Deep links – Tax return</summary>
+          <summary>Tax return</summary>
           <div>
             <button class="btn-link" type="button">Open Tax return</button>
             <button class="btn-link" type="button">Open Item P9 – Business income (non‑primary production)</button>
@@ -188,11 +258,29 @@
         <!-- Reviewer-only: no client copy required -->
 
         <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: Trust distributions"> ATO: Trust distributions</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
+          <summary>Suggested resources</summary>
+          <div class="res-cat">
+            <h4>ATO guidance</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="ATO: Trust distributions" data-url="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare/trust-distributions"> ATO: Trust distributions</label>
+                <span class="res-actions"><button class="btn-doc" type="button" data-attach>Attach to item</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="res-cat">
+            <h4>Legislation / rulings</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="PS LA – Trust streaming" data-url="https://www.ato.gov.au/law/"> PS LA – Trust streaming</label>
+                <span class="res-actions"><button class="btn-doc" type="button" data-attach>Attach to item</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="learn-more-block" hidden>
+            <strong>Learn more links added:</strong>
+            <ul class="learn-links"></ul>
+          </div>
         </details>
 
         <details>
@@ -204,7 +292,7 @@
         </details>
 
         <details>
-          <summary>Deep links – Tax return & ledger</summary>
+          <summary>Tax return</summary>
           <div>
             <button class="btn-link" type="button">Open Tax return</button>
             <button class="btn-link" type="button">Open Item 13 – Partnerships and trusts (Distributions received)</button>
@@ -243,12 +331,38 @@
         <textarea id="caploss-client" class="client-copy">You have $42,000 of capital losses carried forward. We will ensure correct application this year and use this as a planning opportunity to time future disposals tax‑effectively.</textarea>
 
         <details>
-          <summary>AI-suggested resources</summary>
-          <ul>
-            <li><label><input type="checkbox" class="res-choice" value="ATO: Capital losses"> ATO: Capital losses</label></li>
-            <li><label><input type="checkbox" class="res-choice" value="Internal: CGT planning notes"> Internal: CGT planning notes</label></li>
-          </ul>
-          <button class="btn-link" type="button">Add Resource</button>
+          <summary>Suggested resources</summary>
+          <div class="res-cat">
+            <h4>ATO guidance</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="ATO: Capital losses" data-url="https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/capital-losses"> ATO: Capital losses</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-insert="learn-more">Insert into client copy</button> <button class="btn-doc" type="button" data-attach>Attach to item</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="res-cat">
+            <h4>Practice resources</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="Internal: CGT planning notes" data-url="https://intranet.myob/resources/tax/CGT_planning_notes.pdf"> Internal: CGT planning notes</label>
+                <span class="res-actions"><button class="btn-doc" type="button" data-attach>Attach to item</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="res-cat">
+            <h4>Benchmarking</h4>
+            <ul>
+              <li>
+                <label><input type="checkbox" class="res-choice" value="Loss utilisation patterns vs peers" data-url="https://intranet.myob/benchmarks/capital-loss-utilisation"> Loss utilisation patterns vs peers</label>
+                <span class="res-actions"><button class="btn-link" type="button" data-insert="learn-more">Insert into client copy</button></span>
+              </li>
+            </ul>
+          </div>
+          <div class="learn-more-block" hidden>
+            <strong>Learn more links added:</strong>
+            <ul class="learn-links"></ul>
+          </div>
         </details>
 
         <details>
@@ -260,7 +374,7 @@
         </details>
 
         <details>
-          <summary>Deep links – Tax return</summary>
+          <summary>Tax return</summary>
           <div>
             <button class="btn-link" type="button">Open Tax return</button>
             <button class="btn-link" type="button">Open Item 18 – Capital gains</button>
@@ -315,8 +429,8 @@
         </details>
 
         <details>
-          <summary>Deep links</summary>
-          <button class="btn-link" type="button">Open related schedule / worksheet</button>
+          <summary>Tax return</summary>
+          <button class="btn-link" type="button">Open Tax return</button>
         </details>
 
         <div class="action-row">
@@ -436,7 +550,7 @@
           block = document.createElement('div');
           block.className = 'issue-block'+(carried ? ' carried' : '');
           block.setAttribute('data-letter-key', key);
-          block.innerHTML = '<h3><span class="icon">'+icon+'</span>'+title+'</h3><p class="copy"></p>';
+          block.innerHTML = '<h3><span class="icon">'+icon+'</span>'+title+'</h3><p class="copy"></p><ul class="notes"></ul>';
           container.appendChild(block);
         } else {
           block.className = 'issue-block'+(carried ? ' carried' : '');
@@ -445,6 +559,63 @@
         }
         const p = block.querySelector('.copy');
         if (p) p.textContent = text;
+      }
+
+      function addNoteToLetter(key, note) {
+        const container = document.getElementById('letter-issues');
+        if (!container) return;
+        const block = container.querySelector('[data-letter-key="'+key+'"]');
+        if (!block) return;
+        const ul = block.querySelector('.notes');
+        if (!ul) return;
+        const li = document.createElement('li');
+        li.textContent = note;
+        ul.appendChild(li);
+      }
+
+      function handleResourceActions(card) {
+        const clientCopy = card.querySelector('.client-copy');
+        const learnBlock = card.querySelector('.learn-more-block');
+        const learnList = card.querySelector('.learn-links');
+        function ensureLearnVisible() {
+          if (learnBlock) learnBlock.hidden = false;
+        }
+        card.querySelectorAll('[data-insert="learn-more"]').forEach(function(btn){
+          btn.addEventListener('click', function(e){
+            const label = e.target.closest('li')?.querySelector('label');
+            const url = label?.querySelector('input')?.getAttribute('data-url') || '#';
+            const text = label?.innerText?.trim() || 'Resource';
+            // Append a Learn more link in the client copy
+            if (clientCopy) {
+              const existing = clientCopy.value.trim();
+              const linkText = ` Learn more: ${text} (${url})`;
+              clientCopy.value = existing ? existing + '\n' + linkText : linkText;
+              clientCopy.dispatchEvent(new Event('input'));
+            }
+            // Track in card Learn more list
+            if (learnList) {
+              ensureLearnVisible();
+              const li = document.createElement('li');
+              li.textContent = `${text}`;
+              learnList.appendChild(li);
+            }
+          });
+        });
+
+        card.querySelectorAll('[data-attach]').forEach(function(btn){
+          btn.addEventListener('click', function(e){
+            const label = e.target.closest('li')?.querySelector('label');
+            const text = label?.innerText?.trim() || 'Attachment';
+            const audit = card.querySelector('.audit');
+            if (audit) {
+              audit.hidden = false;
+              const ul = audit.querySelector('ul');
+              const li = document.createElement('li');
+              li.textContent = nowIso()+': Attached resource - '+text;
+              ul.appendChild(li);
+            }
+          });
+        });
       }
 
       function removeLetterBlock(key) {
@@ -502,7 +673,7 @@
 
         const commentBtn = card.querySelector('[data-action="comment"]');
         if (commentBtn) commentBtn.addEventListener('click', function() {
-          const note = prompt('Add comment (will appear in audit trail):');
+          const note = prompt('Add comment (appears in audit trail; added to client letter if included):');
           if (!note) return;
           const audit = card.querySelector('.audit');
           if (audit) {
@@ -511,6 +682,12 @@
             const li = document.createElement('li');
             li.textContent = nowIso()+': '+note;
             ul.appendChild(li);
+          }
+          const addToLetterChecked = card.querySelector('[data-action="add-to-letter"]')?.checked;
+          if (addToLetterChecked) {
+            // Ensure block exists and append note
+            upsertLetterBlock(key, title, icon, clientCopy?.value || '', card.querySelector('[data-action="carry-forward"]')?.checked);
+            addNoteToLetter(key, note);
           }
         });
 
@@ -529,6 +706,9 @@
             upsertLetterBlock(key, title, icon, clientCopy.value, card.querySelector('[data-action="carry-forward"]')?.checked);
           }
         });
+
+        // Wire up resource actions within this card
+        handleResourceActions(card);
       }
 
       document.querySelectorAll('.flag.card').forEach(initCard);
