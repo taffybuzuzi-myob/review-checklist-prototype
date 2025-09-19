@@ -100,6 +100,7 @@
     .viewer-grid { display: grid; grid-template-columns: 1fr 200px; gap: 10px 16px; align-items: center; }
     .viewer-grid label { color: #374151; }
     .viewer-grid input, .viewer-grid select { width: 100%; padding: 8px 10px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; }
+    .img-modal-body img { max-width: 100%; height: auto; display: block; margin: 0 auto; border: 1px solid #edf1f7; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.1); }
   </style>
 </head>
 <body>
@@ -1054,10 +1055,8 @@
         try { window.open(url, '_blank', 'noopener'); } catch(e) { location.href = url; }
       }
 
-      function openItem18Viewer(data) {
-        const cg = (data?.items || []).find(function(it){ return it.code === '18'; }) || {};
-        const sched = cg.schedule || {};
-        const html = '\n<div class="modal-overlay" data-return-viewer>\n  <div class="modal-card">\n    <div class="modal-header">\n      <div class="modal-title">Item 18 – Capital gains</div>\n      <div class="modal-actions">\n        <button class="btn-mini" data-close-viewer>Close</button>\n      </div>\n    </div>\n    <div class="modal-body">\n      <div class="viewer-grid">\n        <label>Did you have a capital gains tax event?</label>\n        <select><option>'+((sched.eventYesNo? 'Yes':'No'))+'</option></select>\n        <label>Net capital gain</label>\n        <input value="'+(sched.netCapitalGain ?? 0)+'"/>\n        <label>Total current year capital gains</label>\n        <input value="'+(sched.totalCurrentYearCapitalGains ?? 0)+'"/>\n        <label>Have you applied an exemption/discount?</label>\n        <select><option>'+((sched.discountApplied? 'Yes':'No'))+'</option></select>\n        <label>Net capital losses carried forward</label>\n        <input value="'+(sched.capitalLossesCarriedForward ?? 0)+'"/>\n      </div>\n    </div>\n  </div>\n</div>';
+      function openItem18Viewer() {
+        const html = '\n<div class="modal-overlay" data-return-viewer>\n  <div class="modal-card">\n    <div class="modal-header">\n      <div class="modal-title">Item 18 – Capital gains</div>\n      <div class="modal-actions">\n        <button class="btn-mini" data-close-viewer>Close</button>\n      </div>\n    </div>\n    <div class="modal-body img-modal-body">\n      <img src="assets/docs/item18_capital_gains_mock.png" alt="Item 18 – Capital gains"/>\n    </div>\n  </div>\n</div>';
         const wrap = document.createElement('div');
         wrap.innerHTML = html;
         document.body.appendChild(wrap.firstElementChild);
@@ -1077,8 +1076,8 @@
           const key = btn.getAttribute('data-open');
           const url = urls[key];
           if (key === 'item18') {
-            // open interactive viewer seeded from JSON
-            fetch('data/return_2025_kerry_davids.json').then(function(r){return r.json();}).then(openItem18Viewer);
+            // open image-based simulation viewer
+            openItem18Viewer();
           } else if (url) {
             openInNewTab(url);
           }
