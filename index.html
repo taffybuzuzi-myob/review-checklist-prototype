@@ -46,6 +46,7 @@
     .card-title { font-weight: 700; letter-spacing: 0.2px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
     .status { padding: 4px 10px; border-radius: 999px; font-size: 12px; color: #333; background: #eef2f7; border: 1px solid #d7dde6; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.02); }
     .status-draft { background: #fff; }
+    .status-aml { background: #fff7ed; border-color: #f3d1a8; color: #8a5800; }
     .status-approved { background: #e7f7ea; color: #1b5e20; border-color: #c8e6c9; }
     .status-carried { background: #f1e8fb; color: #5b21b6; border-color: #e9d5ff; }
     .status-snoozed { background: #fff3cd; color: #795548; border-color: #ffe08a; }
@@ -113,6 +114,11 @@
     .amount-link { color: var(--brand-primary-600); text-decoration: underline; cursor: pointer; white-space: nowrap; }
     .amount-link[aria-disabled="true"] { cursor: default; opacity: .9; }
     .estimate-note { font-size: 12px; color: #6b7280; margin-top: 6px; }
+    /* What-if toggles (design only) */
+    .whatif { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+    @media (max-width: 800px) { .whatif { grid-template-columns: 1fr; } }
+    .whatif .toggle { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px dashed #e6e6f0; border-radius: 8px; background: #fafaff; }
+    .whatif-note { font-size: 12px; color: #6b7280; margin-top: 6px; }
     .estimate-body img { width:100%; height:auto; border-radius:8px; border:1px solid #edf1f7; }
   </style>
 </head>
@@ -171,7 +177,8 @@
     <div class="header">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
       <h1>Reviewer Summary – FY2025</h1>
-          <div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="status status-aml" title="Future: AML/CTF checks – click to review (inactive)">AML: CDD due</span>
             <a class="btn-mini" id="pdf-link" href="#" target="_blank" rel="noopener">View full return (PDF)</a>
             <button class="btn-mini" id="btn-back-dashboard" type="button">← Back to dashboard</button>
           </div>
@@ -201,6 +208,10 @@
                   <li><span>Trust distributions</span> <span><a class="amount-link" aria-disabled="true" role="link" tabindex="-1" title="Go to Item 13 – Partnerships and trusts">$7,500</a></span></li>
                   <li><span>Business income</span> <span><a class="amount-link" aria-disabled="true" role="link" tabindex="-1" title="Go to Item P9 – Business income (non‑primary production)">$18,900</a></span></li>
                 </ul>
+                <div class="whatif">
+                  <label class="toggle"><input type="checkbox" disabled checked> Apply small business offset (design)</label>
+                  <label class="toggle"><input type="checkbox" disabled> Assume PAYG instalments next year (design)</label>
+                </div>
               </div>
               <div>
                 <h4>Carried forward items</h4>
@@ -586,7 +597,7 @@
       </div>
       <div class="section-body">
       <div class="letter">
-        <p>Dear John,</p>
+        <p>Dear Kerry,</p>
 
         <p>We thank you for allowing us the opportunity to assist you with your taxation needs. 
         We are pleased to enclose your Income Tax Return for the year ended 30 June 2025.</p>
