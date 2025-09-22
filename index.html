@@ -104,6 +104,15 @@
     /* Estimate card */
     .estimate { background:#fff;border:1px solid #edf1f7;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.06); padding: 12px 14px; }
     .estimate-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+    /* Estimate summary */
+    .estimate-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    @media (max-width: 800px) { .estimate-summary { grid-template-columns: 1fr; } }
+    .kv-list { list-style: none; margin: 0; padding: 0; border: 1px solid #edf1f7; border-radius: 8px; background: #fff; }
+    .kv-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 10px; border-bottom: 1px solid #f2f4f8; }
+    .kv-list li:last-child { border-bottom: 0; }
+    .amount-link { color: var(--brand-primary-600); text-decoration: underline; cursor: pointer; white-space: nowrap; }
+    .amount-link[aria-disabled="true"] { cursor: default; opacity: .9; }
+    .estimate-note { font-size: 12px; color: #6b7280; margin-top: 6px; }
     .estimate-body img { width:100%; height:auto; border-radius:8px; border:1px solid #edf1f7; }
   </style>
 </head>
@@ -174,15 +183,34 @@
         <strong>Status:</strong> Draft &nbsp;|&nbsp;
         <strong>Checklist:</strong> 9/11 complete
       </div>
-        <div class="estimate" id="estimate-full" style="margin-top:12px;">
-          <div class="estimate-header">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <h3 style="margin:0;">Tax Estimate 2025</h3>
+        <div class="card collapsed" id="estimate-full" style="margin-top:12px;">
+          <div class="card-header">
+            <div class="card-title"><span class="icon">📄</span>Tax Estimate 2025</div>
+            <div>
               <button class="btn-toggle" id="toggle-estimate" type="button" aria-expanded="false" title="Expand"><span class="chev" aria-hidden>▾</span></button>
+              <button class="btn-mini" id="open-estimate-modal" type="button">Open larger</button>
             </div>
-            <button class="btn-mini" id="open-estimate-modal" type="button">Open larger</button>
           </div>
-          <div class="estimate-body">
+          <div class="card-body estimate-body">
+            <div class="estimate-summary">
+              <div>
+                <h4>Summary of taxable income</h4>
+                <ul class="kv-list" id="estimate-income-list">
+                  <li><span>Salary and wages</span> <span><a class="amount-link" aria-disabled="true" role="link" tabindex="-1" title="Go to Item 1 – Salary and wages">$95,000</a></span></li>
+                  <li><span>Interest income</span> <span><a class="amount-link" aria-disabled="true" role="link" tabindex="-1" title="Go to Item 10 – Interest">$420</a></span></li>
+                  <li><span>Trust distributions</span> <span><a class="amount-link" aria-disabled="true" role="link" tabindex="-1" title="Go to Item 13 – Partnerships and trusts">$7,500</a></span></li>
+                  <li><span>Business income</span> <span><a class="amount-link" aria-disabled="true" role="link" tabindex="-1" title="Go to Item P9 – Business income (non‑primary production)">$18,900</a></span></li>
+                </ul>
+              </div>
+              <div>
+                <h4>Carried forward items</h4>
+                <ul class="kv-list" id="estimate-cf-list">
+                  <li><span>Capital losses carried forward</span> <span><a class="amount-link" id="cf-capital-losses" aria-disabled="true" role="link" tabindex="-1" title="Go to Item 18 – Capital gains">$42,000</a></span></li>
+                  <li><span>Non‑commercial losses</span> <span><a class="amount-link" aria-disabled="true" role="link" tabindex="-1" title="Go to Non‑commercial losses schedule">$0</a></span></li>
+                </ul>
+              </div>
+            </div>
+            <p class="estimate-note">Amounts are illustrative and not interactive in this prototype.</p>
             <img src="assets/docs/tax_estimate_2025.png" alt="Tax estimate"/>
           </div>
         </div>
@@ -968,6 +996,8 @@
             const item18 = data.items.find(function(it){ return it.code === '18'; });
             if (item18?.schedule?.capitalLossesCarriedForward != null) {
               capCard.querySelector('.flag-summary').textContent = '$'+Number(item18.schedule.capitalLossesCarriedForward).toLocaleString()+' carried forward. Ensure correct application this year.';
+              const cfLbl = document.getElementById('cf-capital-losses');
+              if (cfLbl) cfLbl.textContent = '$'+Number(item18.schedule.capitalLossesCarriedForward).toLocaleString();
             }
           }
           // Map P9 → PAYG card
@@ -1083,22 +1113,24 @@
         document.body.appendChild(wrap.firstElementChild);
       });
 
-      // Collapse/expand estimate image
+      // Collapse/expand estimate card (use same pattern as other cards)
       const estToggle = document.getElementById('toggle-estimate');
       if (estToggle) estToggle.addEventListener('click', function(){
-        const body = document.querySelector('#estimate-full .estimate-body');
-        if (!body) return;
-        const collapsed = body.style.display !== 'block' && body.style.display !== '' ? false : true;
-        // Toggle
-        body.style.display = collapsed ? 'none' : 'block';
+        const card = document.getElementById('estimate-full');
+        if (!card) return;
+        const isCollapsed = card.classList.toggle('collapsed');
+        const body = card.querySelector('.card-body');
+        if (body) body.style.display = isCollapsed ? 'none' : 'block';
         const chev = estToggle.querySelector('.chev');
-        if (chev) chev.style.transform = collapsed ? 'rotate(-90deg)' : 'rotate(0deg)';
-        estToggle.setAttribute('aria-expanded', String(!collapsed));
-        estToggle.setAttribute('title', collapsed ? 'Expand' : 'Collapse');
+        if (chev) chev.style.transform = isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)';
+        estToggle.setAttribute('aria-expanded', String(!isCollapsed));
+        estToggle.setAttribute('title', isCollapsed ? 'Expand' : 'Collapse');
       });
-      // Start collapsed by default
+      // Ensure estimate starts collapsed (class is present in markup)
       (function initEstimateCollapsed(){
-        const body = document.querySelector('#estimate-full .estimate-body');
+        const card = document.getElementById('estimate-full');
+        if (!card) return;
+        const body = card.querySelector('.card-body');
         if (body) body.style.display = 'none';
       })();
 
